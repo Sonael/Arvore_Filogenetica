@@ -1,0 +1,68 @@
+{
+  "name": "LUCA (último ancestral comum universal)",
+  "desc": "O ancestral comum de todos os seres vivos da Terra, do qual descendem os três domínios da vida.",
+  "children": [
+    {
+      "name": "Domínio Bacteria",
+      "sci": "Bacteria",
+      "desc": "Microrganismos procariontes (células sem núcleo), extremamente diversos e abundantes em todos os ambientes.",
+      "children": [
+        { "name": "Bactéria intestinal", "sci": "Escherichia coli", "ano": "1885 (Escherich)",
+          "tax": { "Domínio": "Bacteria", "Filo": "Pseudomonadota", "Classe": "Gammaproteobacteria", "Ordem": "Enterobacterales", "Família": "Enterobacteriaceae", "Gênero": "Escherichia", "Espécie": "Escherichia coli" },
+          "desc": "Bactéria comum no intestino de animais; é um dos organismos-modelo mais estudados da biologia.",
+          "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/47562897/medium.jpg" },
+        { "name": "Cianobactéria", "sci": "Nostoc", "ano": "1888 (Bornet & Flahault)",
+          "tax": { "Domínio": "Bacteria", "Filo": "Cyanobacteria", "Classe": "Cyanophyceae", "Ordem": "Nostocales", "Família": "Nostocaceae", "Gênero": "Nostoc" },
+          "desc": "Bactéria capaz de fazer fotossíntese. As cianobactérias produziram grande parte do oxigênio da atmosfera primitiva.",
+          "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/323996208/medium.png" }
+      ]
+    },
+    {
+      "name": "Ancestral de Archaea e Eukarya",
+      "desc": "Ancestral das arqueias e dos eucariontes, que são mais aparentados entre si do que com as bactérias.",
+      "children": [
+        {
+          "name": "Domínio Archaea",
+          "sci": "Archaea",
+          "desc": "Procariontes frequentemente encontrados em ambientes extremos (calor, sal, ausência de oxigênio).",
+          "children": [
+            { "name": "Arqueia metanogênica", "sci": "Methanococcus", "ano": "1983 (Whitman)",
+              "tax": { "Domínio": "Archaea", "Filo": "Euryarchaeota", "Classe": "Methanococci", "Ordem": "Methanococcales", "Família": "Methanococcaceae", "Gênero": "Methanococcus" },
+              "desc": "Arqueia que produz metano e vive em ambientes sem oxigênio, como pântanos e intestinos.",
+              "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/7871242/medium.jpeg" },
+            { "name": "Arqueia halófila", "sci": "Halobacterium", "ano": "1957 (Elazari-Volcani)",
+              "tax": { "Domínio": "Archaea", "Filo": "Euryarchaeota", "Classe": "Halobacteria", "Ordem": "Halobacteriales", "Família": "Halobacteriaceae", "Gênero": "Halobacterium" },
+              "desc": "Arqueia que vive em água extremamente salgada, como salinas e o Mar Morto.",
+              "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/1010570/medium.jpg" }
+          ]
+        },
+        {
+          "name": "Domínio Eukarya",
+          "sci": "Eukarya",
+          "desc": "Seres com células que possuem núcleo: protistas, plantas, fungos e animais.",
+          "children": [
+            { "name": "Planta", "sci": "Arabidopsis thaliana", "ano": "1842 (Heynhold)",
+              "tax": { "Domínio": "Eukarya", "Reino": "Plantae", "Filo": "Tracheophyta", "Classe": "Magnoliopsida", "Ordem": "Brassicales", "Família": "Brassicaceae", "Gênero": "Arabidopsis", "Espécie": "Arabidopsis thaliana" },
+              "desc": "Pequena planta usada como organismo-modelo da botânica. Representa os eucariontes fotossintetizantes.",
+              "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/187006756/medium.jpeg" },
+            {
+              "name": "Ancestral de fungos e animais",
+              "sci": "Opisthokonta",
+              "desc": "Ancestral que une fungos e animais — dois grupos eucariontes surpreendentemente próximos.",
+              "children": [
+                { "name": "Fungo (levedura)", "sci": "Saccharomyces cerevisiae", "ano": "1883 (Meyen ex Hansen)",
+                  "tax": { "Domínio": "Eukarya", "Reino": "Fungi", "Filo": "Ascomycota", "Classe": "Saccharomycetes", "Ordem": "Saccharomycetales", "Família": "Saccharomycetaceae", "Gênero": "Saccharomyces", "Espécie": "Saccharomyces cerevisiae" },
+                  "desc": "Fungo unicelular usado na produção de pão e cerveja; importante organismo-modelo.",
+                  "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/78030/medium.jpg" },
+                { "name": "Animal", "sci": "Homo sapiens", "ano": "1758 (Linnaeus)",
+                  "tax": { "Domínio": "Eukarya", "Reino": "Animalia", "Filo": "Chordata", "Classe": "Mammalia", "Ordem": "Primates", "Família": "Hominidae", "Gênero": "Homo", "Espécie": "Homo sapiens" },
+                  "desc": "Representa o reino animal; usamos o ser humano como exemplo de eucarionte animal.",
+                  "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/80550183/medium.jpg" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

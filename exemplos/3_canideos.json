@@ -1,0 +1,46 @@
+{
+  "name": "Ancestral dos canídeos",
+  "sci": "Canidae",
+  "desc": "Ancestral comum de cães, lobos, raposas e demais canídeos.",
+  "children": [
+    {
+      "name": "Ancestral raposas e afins",
+      "desc": "Linhagem que agrupa a raposa-vermelha e o cachorro-do-mato.",
+      "children": [
+        { "name": "Raposa-vermelha", "sci": "Vulpes vulpes", "ano": "1758 (Linnaeus)",
+          "tax": { "Reino": "Animalia", "Filo": "Chordata", "Classe": "Mammalia", "Ordem": "Carnivora", "Família": "Canidae", "Gênero": "Vulpes", "Espécie": "Vulpes vulpes" },
+          "desc": "Canídeo de ampla distribuição no Hemisfério Norte, conhecido pela cauda espessa e focinho pontudo.",
+          "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/6568074/medium.jpg" },
+        { "name": "Cachorro-do-mato", "sci": "Cerdocyon thous", "ano": "1766 (Linnaeus)",
+          "tax": { "Reino": "Animalia", "Filo": "Chordata", "Classe": "Mammalia", "Ordem": "Carnivora", "Família": "Canidae", "Gênero": "Cerdocyon", "Espécie": "Cerdocyon thous" },
+          "desc": "Canídeo sul-americano, comum no Brasil, de hábitos noturnos e alimentação onívora.",
+          "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/34537325/medium.jpeg" }
+      ]
+    },
+    {
+      "name": "Ancestral do gênero Canis",
+      "sci": "Canis",
+      "desc": "Ancestral dos coiotes, lobos, chacais e do cão doméstico.",
+      "children": [
+        { "name": "Coiote", "sci": "Canis latrans", "ano": "1823 (Say)",
+          "tax": { "Reino": "Animalia", "Filo": "Chordata", "Classe": "Mammalia", "Ordem": "Carnivora", "Família": "Canidae", "Gênero": "Canis", "Espécie": "Canis latrans" },
+          "desc": "Canídeo norte-americano muito adaptável, presente inclusive em áreas urbanas.",
+          "img": "https://static.inaturalist.org/photos/10963085/medium.jpg" },
+        {
+          "name": "Ancestral dos lobos",
+          "desc": "Ancestral comum do lobo-cinzento e do cão doméstico.",
+          "children": [
+            { "name": "Lobo-cinzento", "sci": "Canis lupus", "ano": "1758 (Linnaeus)",
+              "tax": { "Reino": "Animalia", "Filo": "Chordata", "Classe": "Mammalia", "Ordem": "Carnivora", "Família": "Canidae", "Gênero": "Canis", "Espécie": "Canis lupus" },
+              "desc": "O maior canídeo selvagem, vive em alcateias. É o ancestral direto do cão doméstico.",
+              "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/307568930/medium.jpg" },
+            { "name": "Cão doméstico", "sci": "Canis lupus familiaris", "ano": "1758 (Linnaeus)",
+              "tax": { "Reino": "Animalia", "Filo": "Chordata", "Classe": "Mammalia", "Ordem": "Carnivora", "Família": "Canidae", "Gênero": "Canis", "Espécie": "Canis lupus familiaris" },
+              "desc": "Subespécie do lobo-cinzento, domesticado há mais de 15 mil anos. Um dos animais mais próximos do ser humano.",
+              "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/147773171/medium.jpg" }
+          ]
+        }
+      ]
+    }
+  ]
+}

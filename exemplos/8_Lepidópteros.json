@@ -1,0 +1,366 @@
+{
+  "name": "Ancestral dos Lepidópteros",
+  "sci": "Lepidoptera",
+  "desc": "Ordem de insetos que compreende as borboletas e mariposas. Seu nome deriva do grego 'lepis' (escama) e 'pteron' (asa). Quase todos possuem asas cobertas de escamas e passam por metamorfose completa (holometabolia).",
+  "children": [
+    {
+      "name": "Ancestral Zeugloptera",
+      "sci": "Zeugloptera",
+      "desc": "A subordem mais primitiva de lepidópteros vivos. Diferente das mariposas e borboletas modernas, elas não possuem tromba para sugar fluidos.",
+      "children": [
+        {
+          "name": "Mariposas-mandibuladas",
+          "sci": "Micropterigidae",
+          "ano": "1857 (Herrich-Schäffer)",
+          "tax": {
+            "Reino": "Animalia",
+            "Filo": "Arthropoda",
+            "Classe": "Insecta",
+            "Ordem": "Lepidoptera",
+            "Família": "Micropterigidae"
+          },
+          "desc": "Família de pequenas mariposas extremamente antigas. Em vez da tromba clássica, os adultos ainda possuem mandíbulas funcionais que usam para mastigar esporos de pólen de plantas.",
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYEtfTBDVRV1q_i1fgKI41raUiKbAaxAzS7RqXykPa-nHzr6awO1r-F7o&s=10"
+        }
+      ]
+    },
+    {
+      "name": "Ancestral do Clado Glossata",
+      "sci": "Glossata",
+      "desc": "O grande salto evolutivo dos lepidópteros: o desenvolvimento da 'espirotromba' (uma tromba em formato de espiral), permitindo aos adultos sugar néctar e outros fluidos.",
+      "children": [
+        {
+          "name": "Ancestral Exoporia",
+          "sci": "Exoporia",
+          "desc": "Clado antigo cujas fêmeas possuem um sistema reprodutivo distinto e onde as nervuras das asas dianteiras e traseiras ainda são quase idênticas (homoneura).",
+          "children": [
+            {
+              "name": "Mariposa-fantasma",
+              "sci": "Hepialidae",
+              "ano": "1832 (Stephens)",
+              "tax": {
+                "Reino": "Animalia",
+                "Filo": "Arthropoda",
+                "Classe": "Insecta",
+                "Ordem": "Lepidoptera",
+                "Família": "Hepialidae"
+              },
+              "desc": "Mariposas de tamanho considerável que têm voos ágeis, curtos e pairam no ar como fantasmas durante o acasalamento ao anoitecer.",
+              "img": "https://upload.wikimedia.org/wikipedia/commons/5/56/Phymatopus_hecta3.jpg"
+            }
+          ]
+        },
+        {
+          "name": "Ancestral Heteroneura",
+          "sci": "Heteroneura",
+          "desc": "Clado que abrange 99% das espécies modernas. Eles ganharam grande eficiência de voo porque a estrutura (nervuras) da asa traseira tornou-se menor e evolutivamente diferente da asa dianteira.",
+          "children": [
+            {
+              "name": "Ancestral Ditrysia",
+              "sci": "Ditrysia",
+              "desc": "Clado onde ocorreu uma mudança reprodutiva fundamental: as fêmeas desenvolveram duas aberturas genitais separadas (uma para acasalamento e outra para pôr ovos).",
+              "children": [
+                {
+                  "name": "Ancestral Tineoidea",
+                  "sci": "Tineoidea",
+                  "desc": "Superfamília de pequenas mariposas, muitas das quais com larvas especializadas em digerir materiais duros como fungos, líquen e queratina.",
+                  "children": [
+                    {
+                      "name": "Traça-das-roupas",
+                      "sci": "Tineola bisselliella",
+                      "ano": "1823 (Hummel)",
+                      "tax": {
+                        "Reino": "Animalia",
+                        "Filo": "Arthropoda",
+                        "Classe": "Insecta",
+                        "Ordem": "Lepidoptera",
+                        "Família": "Tineidae",
+                        "Gênero": "Tineola",
+                        "Espécie": "Tineola bisselliella"
+                      },
+                      "desc": "As famosas traças cujas larvas se alimentam de tecidos naturais e pelos, digerindo a queratina de nossas roupas.",
+                      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBSNrOuDdMSx6coF9IdWKEVvfR4JNvg3jySWF1G8HrmbEJJpzNLw9hzvnf&s=10"
+                    }
+                  ]
+                },
+                {
+                  "name": "Ancestral Macrolepidoptera",
+                  "sci": "Macrolepidoptera",
+                  "desc": "O grande clado que abriga as maiores e mais visíveis mariposas do mundo, assim como todas as borboletas verdadeiras.",
+                  "children": [
+                    {
+                      "name": "Ancestral Noctuoidea",
+                      "sci": "Noctuoidea",
+                      "desc": "A maior e mais diversa superfamília de lepidópteros, contendo mais de 70.000 espécies. Conhecidas por possuírem um órgão timpânico (um 'ouvido' no tórax) para detectar o sonar de morcegos.",
+                      "children": [
+                        {
+                          "name": "Mariposa-bruxa",
+                          "sci": "Ascalapha odorata",
+                          "ano": "1758 (Linnaeus)",
+                          "tax": {
+                            "Reino": "Animalia",
+                            "Filo": "Arthropoda",
+                            "Classe": "Insecta",
+                            "Ordem": "Lepidoptera",
+                            "Família": "Erebidae",
+                            "Gênero": "Ascalapha",
+                            "Espécie": "Ascalapha odorata"
+                          },
+                          "desc": "Membro da família Erebidae. É uma das maiores mariposas das Américas, frequentemente associada ao folclore popular como sinal de mau presságio.",
+                          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAc1ATszaMQyjd74P-5vrsVbD1mhkYTbMtiASqC6d3uLEZTJGNpXm7E5SC&s=10"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Ancestral Geometroidea",
+                      "sci": "Geometroidea",
+                      "desc": "Superfamília de mariposas esguias cujas lagartas caminham de uma forma peculiar, dando a impressão de estarem medindo a terra (mede-palmos).",
+                      "children": [
+                        {
+                          "name": "Mariposa mede-palmos",
+                          "sci": "Geometridae",
+                          "ano": "1815 (Leach)",
+                          "tax": {
+                            "Reino": "Animalia",
+                            "Filo": "Arthropoda",
+                            "Classe": "Insecta",
+                            "Ordem": "Lepidoptera",
+                            "Família": "Geometridae"
+                          },
+                          "desc": "Seus adultos descansam com asas abertas e estendidas. Suas lagartas têm camuflagens perfeitas, parecendo pequenos gravetos secos.",
+                          "img": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Chlorissa_pulmentaria.jpg"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Ancestral Bombycoidea",
+                      "sci": "Bombycoidea",
+                      "desc": "Superfamília que contém as mariposas mais espetaculares e pesadas do planeta. Na fase adulta, muitas delas não têm peças bucais funcionais e não se alimentam.",
+                      "children": [
+                        {
+                          "name": "Bicho-da-seda",
+                          "sci": "Bombyx mori",
+                          "ano": "1758 (Linnaeus)",
+                          "tax": {
+                            "Reino": "Animalia",
+                            "Filo": "Arthropoda",
+                            "Classe": "Insecta",
+                            "Ordem": "Lepidoptera",
+                            "Família": "Bombycidae",
+                            "Gênero": "Bombyx",
+                            "Espécie": "Bombyx mori"
+                          },
+                          "desc": "O famoso bicho-da-seda. Foi domesticado na China a partir do Bombyx mandarina e hoje é incapaz de sobreviver na natureza sem ajuda humana.",
+                          "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Bombyx_mori1.jpg/330px-Bombyx_mori1.jpg"
+                        },
+                        {
+                          "name": "Ancestral Saturniidae",
+                          "sci": "Saturniidae",
+                          "desc": "As famosas mariposas-imperador. Frequentemente possuem marcas em forma de olhos nas asas para assustar predadores.",
+                          "children": [
+                            {
+                              "name": "Mariposa-atlas",
+                              "sci": "Attacus atlas",
+                              "ano": "1758 (Linnaeus)",
+                              "tax": {
+                                "Reino": "Animalia",
+                                "Filo": "Arthropoda",
+                                "Classe": "Insecta",
+                                "Ordem": "Lepidoptera",
+                                "Família": "Saturniidae",
+                                "Gênero": "Attacus",
+                                "Espécie": "Attacus atlas"
+                              },
+                              "desc": "Uma das maiores mariposas do mundo. A ponta de suas asas superiores se assemelha incrivelmente à cabeça de uma cobra para afastar ameaças.",
+                              "img": "https://upload.wikimedia.org/wikipedia/commons/b/be/Snake-winged_butterfly.jpg"
+                            },
+                            {
+                              "name": "Mariposa-luna",
+                              "sci": "Actias luna",
+                              "ano": "1758 (Linnaeus)",
+                              "tax": {
+                                "Reino": "Animalia",
+                                "Filo": "Arthropoda",
+                                "Classe": "Insecta",
+                                "Ordem": "Lepidoptera",
+                                "Família": "Saturniidae",
+                                "Gênero": "Actias",
+                                "Espécie": "Actias luna"
+                              },
+                              "desc": "Mariposa noturna inconfundível pelas asas de cor verde-limão pálido e longas caudas em suas asas traseiras.",
+                              "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP4FwNvs39BHoAIzBUDK4u_yrlro03hSIxjkUdCeSzbE8kljpZ7G5ZUAiw&s=10"
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Borboleta-colibri",
+                          "sci": "Agrius convolvuli",
+                          "ano": "1802 (Latreille)",
+                          "tax": {
+                            "Reino": "Animalia",
+                            "Filo": "Arthropoda",
+                            "Classe": "Insecta",
+                            "Ordem": "Lepidoptera",
+                            "Família": "Sphingidae"
+                          },
+                          "desc": "Mariposas de voo incrivelmente rápido e aerodinâmico. Costumam pairar no ar em frente às flores tal como os beija-flores.",
+                          "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Agrius_convolvuli%2C_Czech_Republic_-_20101002-03.jpg/960px-Agrius_convolvuli%2C_Czech_Republic_-_20101002-03.jpg"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Ancestral Rhopalocera (Borboletas)",
+                      "sci": "Rhopalocera",
+                      "desc": "O clado das borboletas. Foi aqui que uma linhagem de mariposas adaptou-se fortemente à vida estritamente diurna, desenvolvendo antenas terminadas em clava (bolinha) e cores vibrantes.",
+                      "children": [
+                        {
+                          "name": "borboleta-saltadora-grande",
+                          "sci": "Ochlodes sylvanus",
+                          "ano": "1809 (Latreille)",
+                          "tax": {
+                            "Reino": "Animalia",
+                            "Filo": "Arthropoda",
+                            "Classe": "Insecta",
+                            "Ordem": "Lepidoptera",
+                            "Família": "Hesperiidae"
+                          },
+                          "desc": "Grupo de borboletas robustas de voo extremamente rápido e saltitante. São o grupo mais basal e primitivo das borboletas, com traços mistos de mariposa.",
+                          "img": "https://translate.google.com/website?sl=en&tl=pt&hl=pt&client=srp&u=https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/2014.06.27.-2-Kaefertaler_Wald-Mannheim--Rostfarbiger_Dickkopffalter-Maennchen.jpg/500px-2014.06.27.-2-Kaefertaler_Wald-Mannheim--Rostfarbiger_Dickkopffalter-Maennchen.jpg"
+                        },
+                        {
+                          "name": "Ancestral Papilionoidea",
+                          "sci": "Papilionoidea",
+                          "desc": "O clado das 'borboletas verdadeiras'. Correspondem às borboletas mais modernas e populares.",
+                          "children": [
+                            {
+                              "name": "Borboletas-rabo-de-andorinha",
+                              "sci": "Papilionidae",
+                              "ano": "1802 (Latreille)",
+                              "tax": {
+                                "Reino": "Animalia",
+                                "Filo": "Arthropoda",
+                                "Classe": "Insecta",
+                                "Ordem": "Lepidoptera",
+                                "Família": "Papilionidae"
+                              },
+                              "desc": "Grandes e belas borboletas que geralmente possuem um par de prolongamentos finos em suas asas traseiras.",
+                              "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Fesoj_-_Papilio_machaon_%28by%29.jpg/330px-Fesoj_-_Papilio_machaon_%28by%29.jpg"
+                            },
+                            {
+                              "name": "Borboleta branca da couve",
+                              "sci": "Pieridae",
+                              "ano": "1820 (Swainson)",
+                              "tax": {
+                                "Reino": "Animalia",
+                                "Filo": "Arthropoda",
+                                "Classe": "Insecta",
+                                "Ordem": "Lepidoptera",
+                                "Família": "Pieridae"
+                              },
+                              "desc": "Família de borboletas de porte médio cujas asas adquirem suas pigmentações amarelas, brancas ou laranjas a partir de moléculas derivadas de seus excrementos.",
+                              "img": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Large_white_spread_wings.jpg"
+                            },
+                            {
+                              "name": "Borboleta-azul-comum",
+                              "sci": "Polyommatus icarus",
+                              "ano": "1815 (Leach)",
+                              "tax": {
+                                "Reino": "Animalia",
+                                "Filo": "Arthropoda",
+                                "Classe": "Insecta",
+                                "Ordem": "Lepidoptera",
+                                "Família": "Lycaenidae"
+                              },
+                              "desc": "Compreende quase 30% das borboletas conhecidas. São pequenas, e a maioria de suas lagartas tem uma forte relação simbiótica (e até parasita) com formigas.",
+                              "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQom5MNaVrUO53PWqZTa7Ty1hBxLv_7n9bK4uRAKeDJtA&s=10"
+                            },
+                            {
+                              "name": "Ancestral Nymphalidae",
+                              "sci": "Nymphalidae",
+                              "desc": "A maior família de borboletas, popularmente conhecidas como 'borboletas de quatro patas' porque o seu primeiro par de patas é tão curto que fica encolhido e inativo.",
+                              "children": [
+                                {
+                                  "name": "Borboleta-carteiro",
+                                  "sci": "Heliconius melpomene",
+                                  "ano": "1758 (Linnaeus)",
+                                  "tax": {
+                                    "Reino": "Animalia",
+                                    "Filo": "Arthropoda",
+                                    "Classe": "Insecta",
+                                    "Ordem": "Lepidoptera",
+                                    "Família": "Nymphalidae",
+                                    "Subfamília": "Heliconiinae"
+                                  },
+                                  "desc": "Subfamília que apresenta asas compridas e listradas. Adquirem toxinas letais ao se alimentarem de folhas de passiflora (maracujá) enquanto são lagartas.",
+                                  "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyRdI2g5iZ6N0rh_J28Dp9MHsozF-Mds1gmsGXqSRWFhurweD8KEPblPM&s=10"
+                                },
+                                {
+                                  "name": "Borboleta-coruja",
+                                  "sci": "Caligo beltrao",
+                                  "ano": "1818 (Hübner)",
+                                  "tax": {
+                                    "Reino": "Animalia",
+                                    "Filo": "Arthropoda",
+                                    "Classe": "Insecta",
+                                    "Ordem": "Lepidoptera",
+                                    "Família": "Nymphalidae",
+                                    "Gênero": "Caligo"
+                                  },
+                                  "desc": "Grandes borboletas crepusculares das florestas neotropicais. O reverso de suas asas exibe perfeitos 'olhos' que simulam uma coruja para espantar pássaros e lagartos.",
+                                  "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Borboleta.jpg/960px-Borboleta.jpg"
+                                },
+                                {
+                                  "name": "Ancestral Danainae e Morphinae",
+                                  "sci": "Nymphalidae avançados",
+                                  "desc": "Divergência entre grandes linhagens espetaculares de ninfalídeos adaptados a selvas tropicais e migrações.",
+                                  "children": [
+                                    {
+                                      "name": " Borboleta-azul-de-Helenor",
+                                      "sci": "Morpho helenor pindarus",
+                                      "ano": "1776 (Cramer)",
+                                      "tax": {
+                                        "Reino": "Animalia",
+                                        "Filo": "Arthropoda",
+                                        "Classe": "Insecta",
+                                        "Ordem": "Lepidoptera",
+                                        "Família": "Nymphalidae",
+                                        "Gênero": "Morpho",
+                                        "Espécie": "Morpho helenor"
+                                      },
+                                      "desc": "Famosas pelas asas gigantes e de um azul metálico deslumbrante. Esta cor não vem de pigmentos, mas da difração da luz nas nanoestruturas de suas escamas.",
+                                      "img": "https://translate.google.com/website?sl=en&tl=pt&hl=pt&client=srp&u=https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Morphohelenorpindarus.JPG/500px-Morphohelenorpindarus.JPG"
+                                    },
+                                    {
+                                      "name": "Borboleta-monarca",
+                                      "sci": "Danaus plexippus",
+                                      "ano": "1758 (Linnaeus)",
+                                      "tax": {
+                                        "Reino": "Animalia",
+                                        "Filo": "Arthropoda",
+                                        "Classe": "Insecta",
+                                        "Ordem": "Lepidoptera",
+                                        "Família": "Nymphalidae",
+                                        "Gênero": "Danaus",
+                                        "Espécie": "Danaus plexippus"
+                                      },
+                                      "desc": "Famosas mundialmente pelas suas massivas e espetaculares migrações transcontinentais do Canadá ao México durante o inverno.",
+                                      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Monarch_In_May.jpg/960px-Monarch_In_May.jpg"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

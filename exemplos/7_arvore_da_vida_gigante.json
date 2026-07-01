@@ -1,0 +1,287 @@
+{
+  "name": "Ancestral Comum Universal (LUCA)",
+  "sci": "Last Universal Common Ancestor",
+  "desc": "O ancestral comum mais recente de todos os seres vivos atuais na Terra.",
+  "children": [
+    {
+      "name": "Domínio Bacteria",
+      "sci": "Bacteria",
+      "desc": "Organismos unicelulares procariontes, sem núcleo definido.",
+      "children": [
+        {
+          "name": "Escherichia coli",
+          "sci": "Escherichia coli",
+          "desc": "Bactéria comum no trato digestivo humano, amplamente usada em pesquisas biológicas.",
+          "img": "https://images.ecycle.com.br/wp-content/uploads/2023/09/11125322/koli-bacteria-123081.jpg.webp",
+          "ano": "1885 (Escherich)",
+          "tax": {
+            "Domínio": "Bacteria",
+            "Filo": "Pseudomonadota",
+            "Classe": "Gammaproteobacteria",
+            "Ordem": "Enterobacterales",
+            "Família": "Enterobacteriaceae",
+            "Gênero": "Escherichia",
+            "Espécie": "Escherichia coli"
+          }
+        },
+        {
+          "name": "Cianobactéria",
+          "sci": "Anabaena",
+          "desc": "Bactérias fotossintetizantes que desempenharam um papel crucial na oxigenação da atmosfera terrestre.",
+          "img": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Anabaena_sperica2.jpg",
+          "ano": "1886 (Bornet & Flahault)",
+          "tax": {
+            "Domínio": "Bacteria",
+            "Filo": "Cyanobacteria",
+            "Classe": "Cyanophyceae",
+            "Ordem": "Nostocales",
+            "Família": "Nostocaceae",
+            "Gênero": "Anabaena"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Domínio Archaea",
+      "sci": "Archaea",
+      "desc": "Procariontes frequentemente encontrados em ambientes extremos, com bioquímica distinta das bactérias.",
+      "children": [
+        {
+          "name": "Halobacterium",
+          "sci": "Halobacterium salinarum",
+          "desc": "Arqueia que vive em ambientes extremamente salinos, como o Mar Morto.",
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6U_2S39aOAnkbl6CxghR4lX9Y965Pq7VbO92m3v78D00AWQIvQfCcnbA&s=10",
+          "ano": "1922 (Harrison & Kennedy)",
+          "tax": {
+            "Domínio": "Archaea",
+            "Filo": "Euryarchaeota",
+            "Classe": "Halobacteria",
+            "Ordem": "Halobacteriales",
+            "Família": "Halobacteriaceae",
+            "Gênero": "Halobacterium",
+            "Espécie": "Halobacterium salinarum"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Domínio Eukarya",
+      "sci": "Eukarya",
+      "desc": "Organismos com células complexas contendo núcleo e organelas membranosas.",
+      "children": [
+        {
+          "name": "Reino Fungi",
+          "sci": "Fungi",
+          "desc": "Organismos heterotróficos que absorvem nutrientes, incluindo cogumelos e leveduras.",
+          "children": [
+            {
+              "name": "Amanita",
+              "sci": "Amanita muscaria",
+              "desc": "Cogumelo icônico com chapéu vermelho e manchas brancas, conhecido por suas propriedades psicoativas.",
+              "img": "https://static.inaturalist.org/photos/26555709/medium.jpg",
+              "ano": "1783 (Lamarck)",
+              "tax": {
+                "Domínio": "Eukarya",
+                "Reino": "Fungi",
+                "Filo": "Basidiomycota",
+                "Classe": "Agaricomycetes",
+                "Ordem": "Agaricales",
+                "Família": "Amanitaceae",
+                "Gênero": "Amanita",
+                "Espécie": "Amanita muscaria"
+              }
+            },
+            {
+              "name": "Levedura de Cerveja",
+              "sci": "Saccharomyces cerevisiae",
+              "desc": "Fungo unicelular essencial na panificação e produção de bebidas alcoólicas.",
+              "img": "https://upload.wikimedia.org/wikipedia/commons/9/95/Saccharomyces_cerevisiae_SEM.jpg",
+              "ano": "1883 (Meyen ex Hansen)",
+              "tax": {
+                "Domínio": "Eukarya",
+                "Reino": "Fungi",
+                "Filo": "Ascomycota",
+                "Classe": "Saccharomycetes",
+                "Ordem": "Saccharomycetales",
+                "Família": "Saccharomycetaceae",
+                "Gênero": "Saccharomyces",
+                "Espécie": "Saccharomyces cerevisiae"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Reino Plantae",
+          "sci": "Plantae",
+          "desc": "Organismos multicelulares fotossintetizantes que formam a base da maioria dos ecossistemas terrestres.",
+          "children": [
+            {
+              "name": "Pinheiro-silvestre",
+              "sci": "Pinus sylvestris",
+              "desc": "Gimnosperma de grande porte, comum em florestas temperadas do Hemisfério Norte.",
+              "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMGA-0BQhgXw_u5EjLhOwovtYNLXwt7oGofxpbT2bNXIpBUALkn4sXFIME&s=10",
+              "ano": "1753 (Linnaeus)",
+              "tax": {
+                "Domínio": "Eukarya",
+                "Reino": "Plantae",
+                "Filo": "Tracheophyta",
+                "Classe": "Pinopsida",
+                "Ordem": "Pinales",
+                "Família": "Pinaceae",
+                "Gênero": "Pinus",
+                "Espécie": "Pinus sylvestris"
+              }
+            },
+            {
+              "name": "Orquídea",
+              "sci": "Orchidaceae",
+              "desc": "Uma das maiores e mais diversas famílias de plantas com flores, conhecida pela beleza de suas pétalas.",
+              "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Orchis_militaris_flowers.jpg/330px-Orchis_militaris_flowers.jpg",
+              "ano": "1789 (Jussieu)",
+              "tax": {
+                "Domínio": "Eukarya",
+                "Reino": "Plantae",
+                "Filo": "Tracheophyta",
+                "Classe": "Liliopsida",
+                "Ordem": "Asparagales",
+                "Família": "Orchidaceae"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Reino Animalia",
+          "sci": "Animalia",
+          "desc": "Organismos multicelulares heterotróficos que se movem de forma independente em algum estágio da vida.",
+          "children": [
+            {
+              "name": "Poríferos",
+              "sci": "Porifera",
+              "desc": "Animais aquáticos simples, como as esponjas, que filtram água para se alimentar.",
+              "img": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Reef3859_-_Flickr_-_NOAA_Photo_Library.jpg",
+              "ano": "1836 (Grant)",
+              "tax": {
+                "Domínio": "Eukarya",
+                "Reino": "Animalia",
+                "Filo": "Porifera"
+              }
+            },
+            {
+              "name": "Cnidários",
+              "sci": "Cnidaria",
+              "desc": "Animais aquáticos com células urticantes, como águas-vivas e corais.",
+              "img": "https://upload.wikimedia.org/wikipedia/commons/0/00/Cnidaria.png",
+              "ano": "1888 (Hatschek)",
+              "tax": {
+                "Domínio": "Eukarya",
+                "Reino": "Animalia",
+                "Filo": "Cnidaria"
+              }
+            },
+            {
+              "name": "Bilateria",
+              "sci": "Bilateria",
+              "desc": "Animais com simetria bilateral e três folhetos germinativos.",
+              "children": [
+                {
+                  "name": "Artrópodes",
+                  "sci": "Arthropoda",
+                  "desc": "Animais com exoesqueleto de quitina e apêndices articulados, o grupo mais diverso da Terra.",
+                  "children": [
+                    {
+                      "name": "Borboleta-monarca",
+                      "sci": "Danaus plexippus",
+                      "desc": "Inseto famoso por suas longas migrações anuais na América do Norte.",
+                      "img": "https://upload.wikimedia.org/wikipedia/commons/7/73/Monarch_Butterfly_Danaus_plexippus_Male_2664px.jpg",
+                      "ano": "1758 (Linnaeus)",
+                      "tax": {
+                        "Reino": "Animalia",
+                        "Filo": "Arthropoda",
+                        "Classe": "Insecta",
+                        "Ordem": "Lepidoptera",
+                        "Família": "Nymphalidae",
+                        "Gênero": "Danaus",
+                        "Espécie": "Danaus plexippus"
+                      }
+                    },
+                    {
+                      "name": "Siri-azul",
+                      "sci": "Callinectes sapidus",
+                      "desc": "Crustáceo decápode comum em águas costeiras, valorizado na culinária.",
+                      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT9z3vLrs0Uq-oFzUL6bbA2S9XoHUb66Xow6ZPUKYyVsgB5bQVLodkAAU&s=10",
+                      "ano": "1896 (Rathbun)",
+                      "tax": {
+                        "Reino": "Animalia",
+                        "Filo": "Arthropoda",
+                        "Classe": "Malacostraca",
+                        "Ordem": "Decapoda",
+                        "Família": "Portunidae",
+                        "Gênero": "Callinectes",
+                        "Espécie": "Callinectes sapidus"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "Cordados",
+                  "sci": "Chordata",
+                  "desc": "Animais que possuem notocorda em algum estágio do desenvolvimento.",
+                  "children": [
+                    {
+                      "name": "Tubarão-branco",
+                      "sci": "Carcharodon carcharias",
+                      "desc": "Um dos maiores predadores marinhos, essencial para o equilíbrio dos ecossistemas oceânicos.",
+                      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKL7QB6_T1M_jJz3lb8yCOATjkbz7_a7qIjP_dnZKI3T0gB0QT3aqQ4tiF&s=10",
+                      "ano": "1758 (Linnaeus)",
+                      "tax": {
+                        "Reino": "Animalia",
+                        "Filo": "Chordata",
+                        "Classe": "Chondrichthyes",
+                        "Ordem": "Lamniformes",
+                        "Família": "Lamnidae",
+                        "Gênero": "Carcharodon",
+                        "Espécie": "Carcharodon carcharias"
+                      }
+                    },
+                    {
+                      "name": "Tigre",
+                      "sci": "Panthera tigris",
+                      "desc": "O maior felino do mundo, predador de topo nativo do continente asiático.",
+                      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Panthera_tigris_tigris_45151733.jpg/960px-Panthera_tigris_tigris_45151733.jpg",
+                      "ano": "1758 (Linnaeus)",
+                      "tax": {
+                        "Reino": "Animalia",
+                        "Filo": "Chordata",
+                        "Classe": "Mammalia",
+                        "Ordem": "Carnivora",
+                        "Família": "Felidae",
+                        "Gênero": "Panthera",
+                        "Espécie": "Panthera tigris"
+                      }
+                    },
+                    {
+                      "name": "Humano",
+                      "sci": "Homo sapiens",
+                      "desc": "Primata bípede conhecido por sua inteligência complexa, linguagem e cultura.",
+                      "img": "https://images.impresa.pt/expresso/2025-08-21-2658z_1802850013_rc26bgain56g_rtrmadp_3_israe_0001-_idp.jpg-993accd5/original",
+                      "ano": "1758 (Linnaeus)",
+                      "tax": {
+                        "Reino": "Animalia",
+                        "Filo": "Chordata",
+                        "Classe": "Mammalia",
+                        "Ordem": "Primates",
+                        "Família": "Hominidae",
+                        "Gênero": "Homo",
+                        "Espécie": "Homo sapiens"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

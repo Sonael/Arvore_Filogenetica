@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robô Explorador</title>
+<style>
+  :root{
+    --bg:#d1c4a9; --panel:#eaddcf; --panel2:#dfceb7; --ink:#3e2819;
+    --muted:#705335; --line:#8b6b4a; --accent:#5c4033; --accent2:#800000;
+    --root:#8b0000; --internal:#556b2f; --leaf:#2f4f4f; --robot:#b8860b;
+    --visited:#800000;
+  }
+  *{box-sizing:border-box}
+  
+  body{margin:0;font-family:"Georgia", "Times New Roman", serif;background:var(--bg);color:var(--ink);
+    background-image: radial-gradient(#8b6b4a 0.5px, transparent 0.5px); background-size: 15px 15px;
+    padding: 20px;}
+    
+  header{padding:25px;border-bottom:2px dashed var(--line);background:transparent;}
+  header h1{margin:0;font-size:26px;font-style:italic;color:var(--accent2)}
+  header p{margin:8px 0 0;color:var(--muted);font-size:14px;line-height:1.6}
+  
+  /* O container principal imita uma página de livro centralizada */
+  body > div:not(#tip) { /* aplica na div mãe de .wrap e .controls se fossem soltas, mas aqui usaremos uma div de contorno mentalmente */ }
+  .book-container { max-width: 1300px; margin: 0 auto; background: var(--panel); box-shadow: 0 15px 35px rgba(0,0,0,0.3); border: 1px solid var(--line); }
+
+  .wrap{display:flex;gap:0;height:calc(100vh - 240px);flex-wrap:wrap}
+  
+  .stage{flex:1 1 640px;min-width:340px;position:relative;background:transparent;}
+  
+  .side{flex:0 0 360px;background:var(--panel2);border-left:2px dashed var(--line);
+    padding:25px;overflow:auto;max-height:calc(100vh - 240px); box-shadow:inset 10px 0 15px -10px rgba(0,0,0,0.1)}
+    
+  svg{width:100%;height:100%;display:block;}
+  
+  .controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+    padding:15px 25px;background:var(--panel2);border-bottom:2px dashed var(--line)}
+    
+  button{background:transparent;color:var(--ink);border:2px solid var(--line);padding:8px 16px;
+    border-radius:4px;font-weight:bold;cursor:pointer;font-size:14px;font-family:"Georgia",serif;
+    transition:all 0.2s; box-shadow: 2px 2px 0 var(--line);}
+  button:hover{background:var(--line);color:#fff; transform:translate(-1px,-1px); box-shadow: 3px 3px 0 var(--accent);}
+  button:active{transform:translate(2px,2px); box-shadow:0 0 0 var(--line);}
+  button:disabled{opacity:.4;cursor:not-allowed;box-shadow:none;}
+  button.ghost{border-style:dotted;}
+  button.danger{border-color:var(--accent2);color:var(--accent2);}
+  button.danger:hover{background:var(--accent2);color:#fff;}
+  
+  .ic{width:16px;height:16px;vertical-align:-2px;margin-right:6px;fill:none;stroke:currentColor;stroke-width:2;}
+  .ic-lg{width:22px;height:22px;vertical-align:-4px;margin-right:8px}
+  .ic-fill{fill:currentColor;stroke:none}
+  
+  .seg{display:flex;border:2px solid var(--line);border-radius:4px; box-shadow: 2px 2px 0 var(--line);}
+  .seg button{border:none;border-right:2px solid var(--line);box-shadow:none;border-radius:0;}
+  .seg button:last-child{border:none;}
+  .seg button.active{background:var(--line);color:#fff;}
+  #modeSeg button.active{background:var(--accent2);color:#fff;}
+  
+  label.lbl{font-size:13px;color:var(--ink);display:flex;align-items:center;gap:8px;font-style:italic;}
+
+  select {
+    background: transparent; color: var(--ink); border: 2px solid var(--line);
+    padding: 6px 12px; border-radius: 4px; font-weight: bold; cursor: pointer;
+    font-size: 13px; font-family: "Georgia", serif; transition: all 0.2s;
+    box-shadow: 2px 2px 0 var(--line); outline: none;
+  }
+  select:hover { border-color: var(--accent); }
+  select:focus { border-color: var(--accent2); box-shadow: 2px 2px 0 var(--accent2); }
+  select option { background: var(--panel); color: var(--ink); font-weight: normal; }
+  
+  h2{font-size:16px;font-style:italic;color:var(--accent); border-bottom:1px solid var(--line);padding-bottom:5px; margin:25px 0 10px;}
+  h2:first-child{margin-top:0}
+  
+  .stat{display:flex;justify-content:space-between;font-size:14px;padding:5px 0; border-bottom:1px dotted var(--line)}
+  .stat b{color:var(--accent2);}
+  
+  .legend{display:flex;flex-direction:column;gap:8px;font-size:13px}
+  .legend div{display:flex;align-items:center;gap:10px}
+  .dot{width:12px;height:12px;border-radius:50%;flex:0 0 auto; border:1px solid var(--ink);}
+  
+  ol.order{margin:0;padding-left:25px;font-size:14px; font-family:"Courier New", monospace;}
+  ol.order li{padding:4px 0;color:var(--muted)}
+  ol.order li.cur{color:var(--accent2);font-weight:bold;}
+  ol.order li b{color:var(--ink);font-family:"Georgia", serif;}
+  
+  .badge{font-size:10px;padding:2px 8px;border-radius:2px;margin-left:6px;border:1px solid currentColor;}
+  .b-root{color:var(--root); background:transparent;}
+  .b-int{color:var(--internal); background:transparent;}
+  .b-leaf{color:var(--leaf); background:transparent;}
+  
+  .node-label{font-size:14px;fill:var(--ink); font-weight:bold;}
+  .node-sci{font-size:11px;font-style:italic;fill:var(--muted)}
+  .int-label{font-size:10px;fill:var(--muted)}
+  .edge{stroke:var(--line);stroke-width:2;fill:none; stroke-linecap:round;}
+  .edge.walked{stroke:var(--visited);stroke-width:4;}
+  
+  .field{margin-bottom:15px}
+  .field label{display:block;font-size:13px;color:var(--ink);margin-bottom:5px;font-style:italic;}
+  .field input[type=text],.field textarea{width:100%;padding:10px;background:rgba(255,255,255,0.3);
+    border:1px solid var(--line);color:var(--ink);font-size:14px;font-family:inherit;}
+  .field input[type=text]:focus,.field textarea:focus{outline:none;border-color:var(--accent2); background:#fff;}
+  
+  .editbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .hint{font-size:13px;color:var(--ink);font-style:italic;line-height:1.6; border:1px solid var(--line);padding:15px;margin-bottom:15px; background:rgba(255,255,255,0.2);}
+  #editPreview{display:none;width:100%;max-height:160px;object-fit:cover;border:3px solid #fff; box-shadow:2px 2px 10px rgba(0,0,0,0.2); margin-top:10px;}
+  
+  #infoCard{display:none;position:absolute;top:20px;left:20px;width:320px;z-index:20;
+    background:var(--panel);border:2px solid var(--line);box-shadow:5px 5px 15px rgba(0,0,0,0.3);padding:20px;
+    max-height:calc(100vh - 300px);overflow:auto;}
+  #infoClose{position:absolute;top:8px;right:8px;width:28px;height:28px;line-height:1;
+    padding:0;font-size:20px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);
+    border-radius:50%;cursor:pointer;box-shadow:none;display:flex;align-items:center;justify-content:center;}
+  #infoClose:hover{background:var(--accent2);color:#fff;transform:none;}
+  #infoAno{display:none;font-size:12px;color:var(--muted);font-style:italic;margin-top:10px;}
+  #infoTax{display:none;margin-top:12px;font-size:12.5px;line-height:1.6;}
+  #infoTax .tax-title{font-weight:bold;font-variant:small-caps;letter-spacing:.5px;color:var(--accent2);
+    border-top:1px solid var(--line);padding-top:8px;margin-bottom:5px;}
+  #infoTax .tax-rank{color:var(--muted);}
+  #infoTax .tax-val{color:var(--ink);font-weight:bold;}
+  #infoTax .tax-val.sci{font-style:italic;}
+  
+  #zoomCtrls{position:absolute;bottom:20px;right:20px;display:flex;flex-direction:column;gap:8px;z-index:20}
+  #zoomCtrls button{width:45px;height:45px;padding:0;display:flex;align-items:center;justify-content:center; border-radius:50%;}
+  
+  #infoImg{display:none;width:100%;max-height:180px;object-fit:cover;border:4px solid #fff; box-shadow:2px 2px 10px rgba(0,0,0,0.2); margin-bottom:15px;}
+  #infoName{font-size:20px;font-weight:bold;color:var(--accent2); font-style:italic;}
+  #infoSci{font-size:13px;color:var(--muted);margin:4px 0 12px; font-family:"Courier New", monospace;}
+  #infoDesc{font-size:14px;line-height:1.6;color:var(--ink)}
+  
+  #tip{position:fixed;z-index:50;max-width:300px;background:#fff;color:var(--ink);
+    border:1px solid var(--line);padding:10px;font-size:13px;font-style:italic; box-shadow:3px 3px 10px rgba(0,0,0,0.1);
+    opacity:0;transition:opacity .15s;pointer-events:none}
+  #tip.show{opacity:1}
+</style>
+</head>
+<body>
+<div id="tip"></div>
+
+<div class="book-container">
+  <header>
+    <h1>Diário Filogenético de Campo</h1>
+    <p>Registros sobre a descendência com modificação.<br> <b>Clique</b> sobre os espécimes para inspecionar as anotações ou <b>esboce sua própria árvore</b>.</p>
+  </header>
+
+  <div class="controls">
+    <div class="seg" id="modeSeg">
+      <button data-mode="explore" class="active">Explorar</button>
+      <button data-mode="edit">Editar</button>
+    </div>
+
+    <label class="lbl">Coleção
+      <select id="collectionSel">
+        <option value="__felidae">Felinos (Felidae)</option>
+        <option value="exemplos/1_primatas_evolucao_humana.json">Primatas (evolução humana)</option>
+        <option value="exemplos/2_vertebrados_classes.json">Vertebrados (classes)</option>
+        <option value="exemplos/3_canideos.json">Canídeos</option>
+        <option value="exemplos/4_dinossauros_e_aves.json">Dinossauros e aves</option>
+        <option value="exemplos/5_arvore_da_vida_3_dominios.json">Árvore da vida (3 domínios)</option>
+        <option value="exemplos/6_Cetartiodáctilos.json">Cetartiodáctilos</option>
+        <option value="exemplos/7_arvore_da_vida_gigante.json">Árvore da vida (gigante)</option>
+        <option value="exemplos/borboletas.json">Borboletas</option>
+      </select>
+    </label>
+
+    <span id="exploreControls" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+      <div class="seg" id="algoSeg">
+        <button data-algo="dfs" class="active" data-tip="Busca em Profundidade. Seguindo a linhagem contínua.">DFS (Profundidade)</button>
+        <button data-algo="bfs" data-tip="Busca em Largura. Analisando todos os contemporâneos.">BFS (Níveis)</button>
+      </div>
+      <button id="playBtn">Iniciar</button>
+      <button id="stepBtn" class="ghost">Avançar</button>
+      <button id="resetBtn" class="ghost">Apagar</button>
+      <label class="lbl">Andamento
+        <input type="range" id="speed" min="1" max="10" value="5">
+      </label>
+    </span>
+
+    <span id="editControls" style="display:none;gap:12px;align-items:center;flex-wrap:wrap">
+      <button id="newBtn" class="ghost">Nova Árvore</button>
+      <button id="exampleBtn" class="ghost">Carregar Felidae</button>
+      <button id="importBtn" class="ghost">Importar</button>
+      <button id="exportBtn">Exportar</button>
+      <input type="file" id="importFile" accept="application/json,.json" hidden>
+    </span>
+  </div>
+
+  <div class="wrap">
+    <div class="stage">
+      <svg id="svg" viewBox="0 0 960 600" preserveAspectRatio="xMidYMid meet"></svg>
+      <div id="infoCard">
+        <button id="infoClose" title="Fechar">&times;</button>
+        <img id="infoImg" alt="">
+        <div id="infoName"></div>
+        <span id="infoBadge" class="badge"></span>
+        <div id="infoSci"></div>
+        <div id="infoDesc"></div>
+        <div id="infoAno"></div>
+        <div id="infoTax"></div>
+      </div>
+      <div id="zoomCtrls">
+        <button id="zoomIn" title="Aproximar"><svg class="ic" viewBox="0 0 16 16"><line x1="8" y1="3.5" x2="8" y2="12.5"/><line x1="3.5" y1="8" x2="12.5" y2="8"/></svg></button>
+        <button id="zoomOut" title="Afastar"><svg class="ic" viewBox="0 0 16 16"><line x1="3.5" y1="8" x2="12.5" y2="8"/></svg></button>
+        <button id="zoomReset" title="Redefinir zoom"><svg class="ic" viewBox="0 0 16 16"><path d="M2.5 6V2.5H6"/><path d="M13.5 6V2.5H10"/><path d="M2.5 10v3.5H6"/><path d="M13.5 10v3.5H10"/></svg></button>
+      </div>
+    </div>
+    <div class="side">
+      <div id="explorePanel">
+        <h2>Anotações do Percurso</h2>
+        <div id="photoBox" style="display:none;text-align:center;margin-bottom:15px">
+          <img id="curPhoto" alt="" style="width:100%;max-height:160px;object-fit:cover;border:4px solid #fff; box-shadow:2px 2px 10px rgba(0,0,0,0.2);">
+          <div id="curPhotoCap" style="font-size:12px;font-family:'Courier New',monospace;color:var(--muted);margin-top:8px"></div>
+        </div>
+        <div class="stat"><span>Espécime Analisado</span><b id="curNode">—</b></div>
+        <div class="stat"><span>Catalogados</span><b id="visCount">0 / 0</b></div>
+        <div class="stat"><span>Milênios (px)</span><b id="dist">0</b></div>
+
+        <h2>Resumo da Espécie</h2>
+        <div class="stat"><span>Total de Entidades</span><b id="tNodes">—</b></div>
+        <div class="stat"><span>Eventos Especiação</span><b id="tInt">—</b></div>
+        <div class="stat"><span>Descendentes Finais</span><b id="tLeaf">—</b></div>
+        <div class="stat"><span>Ligações</span><b id="tEdges">—</b></div>
+        <div class="stat"><span>Era (Profundidade)</span><b id="tDepth">—</b></div>
+
+        <h2>Legenda de Cores</h2>
+        <div class="legend">
+          <div><span class="dot" style="background:var(--root)"></span> Ancestral Primordial</div>
+          <div><span class="dot" style="background:var(--internal)"></span> Divergência Evolutiva</div>
+          <div><span class="dot" style="background:var(--leaf)"></span> Táxon Contemporâneo</div>
+          <div><span class="dot" style="background:var(--robot)"></span> Foco do Naturalista</div>
+        </div>
+
+        <h2>Ordem de Descoberta</h2>
+        <ol class="order" id="orderList"></ol>
+      </div>
+
+      <div id="editPanel" style="display:none">
+        <div class="hint">Use sua pena para desenhar uma nova árvore genealógica. Uma espécie geradora possui descendentes; uma terminal carece deles.</div>
+        <h2>Ponto Selecionado</h2>
+        <div id="noSel" class="hint" style="margin-top:0">Aguardando a seleção de um ramo na folha ao lado.</div>
+        <div id="editFields" style="display:none">
+          <div class="field">
+            <label>Nomenclatura Comum</label>
+            <input type="text" id="fName" placeholder="Ex: Felino Ancestral">
+          </div>
+          <div class="field">
+            <label>Nomenclatura Científica</label>
+            <input type="text" id="fSci" placeholder="Binomial">
+          </div>
+          <div class="field">
+            <label>Ano / Autoria (ex.: 1758 (Linnaeus))</label>
+            <input type="text" id="fAno" placeholder="Ano da descrição">
+          </div>
+          <div class="field">
+            <label>Classificação (um por linha — Rank: valor)</label>
+            <textarea id="fTax" rows="7" placeholder="Reino: Animalia&#10;Filo: Chordata&#10;Classe: Mammalia&#10;Ordem: Primates&#10;Família: Hominidae&#10;Gênero: Homo&#10;Espécie: Homo sapiens"></textarea>
+          </div>
+          <div class="field">
+            <label>Relato Biológico</label>
+            <textarea id="fDesc" rows="5"></textarea>
+          </div>
+          <div class="field">
+            <label>Ilustração (URL)</label>
+            <input type="text" id="fImg">
+          </div>
+          <div class="field">
+            <label>Esboço Local</label>
+            <input type="file" id="fFile" accept="image/*">
+            <img id="editPreview" alt="">
+          </div>
+          <div class="editbtns">
+            <button id="addChild">Descer Ramo</button>
+            <button id="addSibling" class="ghost">Novo Ramo</button>
+            <button id="delNode" class="danger">Erradicar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// taxonomia dos felinos (Reino..Família são iguais; variam Gênero e Espécie)
+const felTax=(genero,especie)=>({Reino:"Animalia",Filo:"Chordata",Classe:"Mammalia",
+  Ordem:"Carnivora","Família":"Felidae","Gênero":genero,"Espécie":especie});
+
+const EXAMPLE = {
+  name:"Ancestral Felidae", sci:"Felidae", desc:"Ancestral comum de todos os felinos, que viveu há cerca de 11 milhões de anos. Deu origem a duas grandes linhagens: os grandes felinos (Pantherinae) e os felinos menores (Felinae).", children:[
+    { name:"Ancestral Pantherinae", sci:"Pantherinae", desc:"Ancestral da subfamília dos grandes felinos, que inclui o gênero Panthera (leão, tigre, onça, leopardo) e o leopardo-das-neves.", children:[
+        { name:"Ancestral tigre+leopardo-das-neves", desc:"Ponto de especiação que separou a linhagem do tigre e do leopardo-das-neves das demais.", children:[
+            { name:"Tigre", sci:"Panthera tigris", ano:"1758 (Linnaeus)", tax:felTax("Panthera","Panthera tigris"), desc:"O maior felino vivo. Vive na Ásia e é facilmente reconhecido pelas listras. Está criticamente ameaçado.", img:"imagens/tigre.jpg" },
+            { name:"Leopardo-das-neves", sci:"Panthera uncia", ano:"1775 (Schreber)", tax:felTax("Panthera","Panthera uncia"), desc:"Felino das montanhas da Ásia Central, com pelagem espessa e cauda longa para equilíbrio na neve.", img:"imagens/leopardo_neves.jpg" }
+        ]},
+        { name:"Ancestral dos grandes Panthera", desc:"Ancestral que originou onça-pintada, leão e leopardo.", children:[
+            { name:"Onça-pintada", sci:"Panthera onca", ano:"1758 (Linnaeus)", tax:felTax("Panthera","Panthera onca"), desc:"O maior felino das Américas. Tem a mordida mais forte entre os felinos em relação ao tamanho.", img:"imagens/onca.jpg" },
+            { name:"Ancestral leão+leopardo", desc:"Ponto de especiação que separou o leão do leopardo — espécies-irmãs geneticamente muito próximas.", children:[
+                { name:"Leão", sci:"Panthera leo", ano:"1758 (Linnaeus)", tax:felTax("Panthera","Panthera leo"), desc:"Único felino social, vivendo em alcateias. Habita savanas africanas e uma pequena região da Índia.", img:"imagens/leao.jpg" },
+                { name:"Leopardo", sci:"Panthera pardus", ano:"1758 (Linnaeus)", tax:felTax("Panthera","Panthera pardus"), desc:"Felino de ampla distribuição (África e Ásia), ótimo escalador que costuma levar presas para as árvores.", img:"imagens/leopardo.jpg" }
+            ]}
+        ]}
+    ]},
+    { name:"Ancestral Felinae", sci:"Felinae", desc:"Ancestral da subfamília dos felinos de pequeno e médio porte, incluindo o puma, o guepardo e o gato doméstico.", children:[
+        { name:"Ancestral puma+guepardo", desc:"Ancestral da linhagem do puma, que também deu origem ao guepardo.", children:[
+            { name:"Puma (onça-parda)", sci:"Puma concolor", ano:"1771 (Linnaeus)", tax:felTax("Puma","Puma concolor"), desc:"Grande felino das Américas, mas geneticamente mais próximo dos felinos pequenos. Tem enorme distribuição, do Canadá à Patagônia.", img:"imagens/puma.jpg" },
+            { name:"Guepardo", sci:"Acinonyx jubatus", ano:"1775 (Schreber)", tax:felTax("Acinonyx","Acinonyx jubatus"), desc:"O animal terrestre mais rápido, atingindo mais de 100 km/h. Corpo esguio adaptado à corrida.", img:"imagens/guepardo.jpg" }
+        ]},
+        { name:"Gato doméstico", sci:"Felis catus", ano:"1758 (Linnaeus)", tax:felTax("Felis","Felis catus"), desc:"Descende do gato-selvagem-africano, domesticado há cerca de 10 mil anos. Hoje é um dos animais de estimação mais comuns do mundo.", img:"imagens/gato.jpg" }
+    ]}
+  ]
+};
+
+function serialize(n){
+  const o={ name:n.name||"" };
+  if(n.sci) o.sci=n.sci;
+  if(n.ano) o.ano=n.ano;
+  if(n.tax && Object.keys(n.tax).length) o.tax={...n.tax};
+  if(n.desc) o.desc=n.desc;
+  if(n.img) o.img=n.img;
+  if(n.children && n.children.length) o.children=n.children.map(serialize);
+  return o;
+}
+const clone = n => serialize(n);
+
+// converte texto "Rank: valor" (uma linha cada) <-> objeto de classificação
+function parseTax(text){
+  const o={};
+  (text||'').split('\n').forEach(line=>{
+    const i=line.indexOf(':');
+    if(i>0){ const k=line.slice(0,i).trim(), v=line.slice(i+1).trim(); if(k&&v) o[k]=v; }
+  });
+  return Object.keys(o).length?o:undefined;
+}
+function taxToText(tax){ return tax?Object.entries(tax).map(([k,v])=>k+': '+v).join('\n'):''; }
+
+const NS='http://www.w3.org/2000/svg';
+const LEFT=70, LEVEL=180, TOP=55, LEAFGAP=62;
+const svg=document.getElementById('svg');
+function el(t,a){ const e=document.createElementNS(NS,t); for(const k in a) e.setAttribute(k,a[k]); return e; }
+function $(id){ return document.getElementById(id); }
+
+const IC={
+  play :'<svg class="ic ic-fill" viewBox="0 0 16 16"><path d="M4 3l9 5-9 5z"/></svg>',
+  pause:'<svg class="ic ic-fill" viewBox="0 0 16 16"><rect x="4" y="3" width="3" height="10"/><rect x="9" y="3" width="3" height="10"/></svg>',
+  check:'<svg class="ic" viewBox="0 0 16 16"><path d="M3 8.5l3.2 3.2L13 5"/></svg>'
+};
+
+let tree = clone(EXAMPLE);
+let allNodes=[], edges=[], nodeEls=new Map(), edgeEls=new Map(), robot=null;
+let totalNodes=0, totalEdges=0, maxDepth=0, leaves=0, internals=0, W=960, H=600;
+let editMode=false, selectedId=null;
+let algo='dfs', waypoints=[], segIdx=0, t=0, playing=false, distance=0, order=[];
+let panX=0, panY=0, zoom=1, viewport=null, VBW=960, VBH=600;
+
+function kind(n){ if(!n.parent) return 'root'; return (n.children&&n.children.length)?'int':'leaf'; }
+
+function layout(){
+  let idc=0, leafIdx=0; maxDepth=0; leaves=0; internals=0; allNodes=[]; edges=[];
+  (function prep(n,depth,parent){
+    n.id=idc++; n.depth=depth; n.parent=parent;
+    n.x=LEFT+depth*LEVEL; maxDepth=Math.max(maxDepth,depth);
+    allNodes.push(n);
+    if(n.children && n.children.length){
+      internals++;
+      n.children.forEach(c=>{ prep(c,depth+1,n); edges.push([n,c]); });
+      n.y = n.children.reduce((s,c)=>s+c.y,0)/n.children.length;
+    } else { leaves++; n.y = TOP + (leafIdx++)*LEAFGAP; }
+  })(tree,0,null);
+  totalNodes=idc; totalEdges=Math.max(0,idc-1);
+  W = LEFT + maxDepth*LEVEL + 290;
+  H = TOP + Math.max(1,leaves)*LEAFGAP;
+  VBW = W; VBH = Math.max(H,360);
+  svg.setAttribute('viewBox',`0 0 ${VBW} ${VBH}`);
+}
+
+function renderSVG(){
+  svg.innerHTML=''; nodeEls=new Map(); edgeEls=new Map();
+  viewport=el('g',{});
+
+  edges.forEach(([p,c])=>{
+    const ln=el('line',{x1:p.x,y1:p.y,x2:c.x,y2:c.y,class:'edge'});
+    viewport.appendChild(ln); edgeEls.set(c.id,ln);
+  });
+
+  allNodes.forEach(n=>{
+    const k=kind(n);
+    const color = k==='root'?'var(--root)':k==='int'?'var(--internal)':'var(--leaf)';
+    const r = k==='leaf'?9 : k==='root'?12 : 8;
+    const g=el('g',{});
+    const circ=el('circle',{cx:n.x,cy:n.y,r:r,fill:color,stroke:'#3e2819','stroke-width':2});
+    g.appendChild(circ); nodeEls.set(n.id,circ);
+
+    if(n.img){
+      const R=24, cx=n.x+34, cy=n.y, clipId='clip'+n.id;
+      const cp=el('clipPath',{id:clipId}); cp.appendChild(el('circle',{cx:cx,cy:cy,r:R})); svg.appendChild(cp);
+      const im=el('image',{x:cx-R,y:cy-R,width:R*2,height:R*2,'clip-path':`url(#${clipId})`,preserveAspectRatio:'xMidYMid slice'});
+      im.setAttributeNS('http://www.w3.org/1999/xlink','href',n.img); im.setAttribute('href',n.img);
+      g.appendChild(im);
+      g.appendChild(el('circle',{cx:cx,cy:cy,r:R,fill:'none',stroke:'var(--ink)','stroke-width':1.5}));
+      const t1=el('text',{x:cx+R+8,y:n.y-2,class:'node-label'}); t1.textContent=n.name; g.appendChild(t1);
+      const t2=el('text',{x:cx+R+8,y:n.y+11,class:'node-sci'}); t2.textContent=n.sci||''; g.appendChild(t2);
+    } else if(k==='leaf' || k==='root'){
+      const t1=el('text',{x:n.x+16,y:n.y-2,class:'node-label'}); t1.textContent=n.name; g.appendChild(t1);
+      if(n.sci){ const t2=el('text',{x:n.x+16,y:n.y+11,class:'node-sci'}); t2.textContent=n.sci; g.appendChild(t2); }
+    } else {
+      const t1=el('text',{x:n.x,y:n.y-13,class:'int-label','text-anchor':'middle'}); t1.textContent=(n.name||'especiação'); g.appendChild(t1);
+    }
+
+    g.appendChild(el('circle',{cx:n.x,cy:n.y,r:20,fill:'transparent'}));
+    g.style.cursor='pointer';
+    if(editMode){
+      g.addEventListener('click',()=>selectNode(n.id));
+    } else {
+      g.addEventListener('click',()=>showInfo(n));
+    }
+    viewport.appendChild(g);
+  });
+
+  if(editMode && selectedId!=null){
+    const s=allNodes.find(x=>x.id===selectedId);
+    if(s) viewport.appendChild(el('circle',{cx:s.x,cy:s.y,r:16,fill:'none',stroke:'var(--accent2)','stroke-width':2,'stroke-dasharray':'4 4'}));
+  }
+
+  robot=el('g',{});
+  robot.appendChild(el('circle',{r:13,fill:'var(--robot)',stroke:'var(--ink)','stroke-width':1.5}));
+  robot.appendChild(el('line',{x1:0,y1:-9,x2:0,y2:-6,stroke:'var(--ink)','stroke-width':1.5}));
+  robot.appendChild(el('circle',{cx:0,cy:-9.5,r:1.3,fill:'var(--ink)'}));
+  robot.appendChild(el('rect',{x:-5.5,y:-6,width:11,height:9,rx:2,fill:'none',stroke:'var(--ink)','stroke-width':1.5}));
+  robot.appendChild(el('circle',{cx:-2.4,cy:-1.5,r:1.4,fill:'var(--ink)'}));
+  robot.appendChild(el('circle',{cx:2.4,cy:-1.5,r:1.4,fill:'var(--ink)'}));
+  robot.appendChild(el('line',{x1:-2.5,y1:1.4,x2:2.5,y2:1.4,stroke:'var(--ink)','stroke-width':1.4}));
+  viewport.appendChild(robot);
+  if(editMode) robot.style.display='none';
+
+  svg.appendChild(viewport);
+  applyTransform();
+}
+
+function applyTransform(){
+  if(viewport) viewport.setAttribute('transform',`translate(${panX} ${panY}) scale(${zoom})`);
+}
+function clampZoom(z){ return Math.max(0.3, Math.min(4, z)); }
+function zoomAt(sx, sy, newZoom){
+  newZoom=clampZoom(newZoom);
+  const cx=(sx-panX)/zoom, cy=(sy-panY)/zoom;
+  zoom=newZoom;
+  panX=sx-cx*zoom; panY=sy-cy*zoom;
+  applyTransform();
+}
+function resetView(){ panX=0; panY=0; zoom=1; applyTransform(); }
+function toViewBox(clientX, clientY){
+  const r=svg.getBoundingClientRect();
+  return { x:(clientX-r.left)*(VBW/r.width), y:(clientY-r.top)*(VBH/r.height) };
+}
+
+function buildDFS(){
+  const wp=[]; const seen=new Set();
+  (function go(n){
+    wp.push({x:n.x,y:n.y,id:n.id,arrive:!seen.has(n.id)}); seen.add(n.id);
+    if(n.children) n.children.forEach(c=>{ go(c); wp.push({x:n.x,y:n.y,id:n.id,arrive:false}); });
+  })(tree);
+  return wp;
+}
+function buildBFS(){
+  const wp=[]; const q=[tree];
+  while(q.length){ const n=q.shift(); wp.push({x:n.x,y:n.y,id:n.id,arrive:true});
+    if(n.children) n.children.forEach(c=>q.push(c)); }
+  return wp;
+}
+
+function resetState(){
+  stopAnim(); segIdx=0; t=0; distance=0; order=[];
+  waypoints = (algo==='dfs')?buildDFS():buildBFS();
+  allNodes.forEach(n=>{ const c=nodeEls.get(n.id); if(c){c.setAttribute('stroke','#3e2819');c.setAttribute('stroke-width',2);} });
+  edgeEls.forEach(e=>e.classList.remove('walked'));
+  if(robot && waypoints.length){ const p=waypoints[0]; placeRobot(p.x,p.y); }
+  $('playBtn').innerHTML=IC.play+'Iniciar';
+  refreshPanel(); renderOrder();
+}
+function placeRobot(x,y){ if(robot) robot.setAttribute('transform',`translate(${x},${y})`); }
+
+function markArrive(id){
+  if(order.includes(id)) return;
+  order.push(id);
+  const c=nodeEls.get(id); if(c){c.setAttribute('stroke','var(--visited)');c.setAttribute('stroke-width',3);}
+  renderOrder();
+}
+function stepSegment(){
+  if(segIdx>=waypoints.length-1) return;
+  const a=waypoints[segIdx], b=waypoints[segIdx+1];
+  distance += Math.hypot(b.x-a.x,b.y-a.y);
+  if(algo==='dfs'){ edgeEls.get(b.id)?.classList.add('walked'); edgeEls.get(a.id)?.classList.add('walked'); }
+  placeRobot(b.x,b.y); if(b.arrive) markArrive(b.id);
+  segIdx++; t=0; refreshPanel();
+}
+let raf=null,last=0;
+function stopAnim(){ if(raf){ cancelAnimationFrame(raf); raf=null; } playing=false; }
+function loop(ts){
+  if(!playing) return;
+  if(!last) last=ts; const dt=(ts-last)/1000; last=ts;
+  const speed=+$('speed').value;
+  if(segIdx>=waypoints.length-1){ stopAnim(); $('playBtn').innerHTML=IC.check+'Concluído'; return; }
+  const a=waypoints[segIdx], b=waypoints[segIdx+1];
+  const segLen=Math.hypot(b.x-a.x,b.y-a.y)||1;
+  t += (speed*120*dt)/segLen;
+  if(t>=1){
+    distance+=segLen; placeRobot(b.x,b.y);
+    if(algo==='dfs'){ edgeEls.get(b.id)?.classList.add('walked'); edgeEls.get(a.id)?.classList.add('walked'); }
+    if(b.arrive) markArrive(b.id); segIdx++; t=0;
+  } else { placeRobot(a.x+(b.x-a.x)*t, a.y+(b.y-a.y)*t); }
+  refreshPanel(); raf=requestAnimationFrame(loop);
+}
+
+function nodeName(id){ const n=allNodes.find(x=>x.id===id); return n?n.name:'—'; }
+function refreshPanel(){
+  const lastId = order.length?order[order.length-1]:null;
+  $('curNode').textContent = lastId!==null?nodeName(lastId):'—';
+  const box=$('photoBox'); const cur=lastId!==null?allNodes.find(n=>n.id===lastId):null;
+  if(cur && cur.img){ $('curPhoto').src=cur.img; $('curPhotoCap').textContent=cur.sci||''; box.style.display='block'; }
+  else box.style.display='none';
+  $('visCount').textContent = `${order.length} / ${totalNodes}`;
+  $('dist').textContent = Math.round(distance)+'';
+  $('tNodes').textContent=totalNodes; $('tInt').textContent=internals;
+  $('tLeaf').textContent=leaves; $('tEdges').textContent=totalEdges; $('tDepth').textContent=maxDepth;
+}
+function renderOrder(){
+  const ol=$('orderList'); ol.innerHTML='';
+  order.forEach((id,i)=>{
+    const n=allNodes.find(x=>x.id===id); if(!n) return; const k=kind(n);
+    const li=document.createElement('li');
+    const badge = k==='root'?'<span class="badge b-root">raiz</span>'
+                : k==='int'?'<span class="badge b-int">especiação</span>'
+                : '<span class="badge b-leaf">espécie</span>';
+    li.innerHTML=`<b>${n.name}</b>${badge}`;
+    if(i===order.length-1) li.className='cur';
+    ol.appendChild(li);
+  });
+}
+
+function showInfo(n){
+  const k=kind(n);
+  const img=$('infoImg');
+  if(n.img){ img.src=n.img; img.style.display='block'; } else img.style.display='none';
+  $('infoName').textContent=n.name||'';
+  const sci=$('infoSci'); sci.textContent=n.sci||''; sci.style.display=n.sci?'block':'none';
+  const bd = k==='root'?['raiz','b-root'] : k==='int'?['especiação','b-int'] : ['espécie','b-leaf'];
+  const badge=$('infoBadge'); badge.className='badge '+bd[1]; badge.textContent=bd[0];
+  $('infoDesc').textContent = n.desc || 'Ausência de anotações.';
+  // ano / autoria
+  const ano=$('infoAno');
+  if(n.ano){ ano.textContent='Descrita em: '+n.ano; ano.style.display='block'; } else ano.style.display='none';
+  // classificação taxonômica
+  const tx=$('infoTax'); tx.innerHTML='';
+  if(n.tax && Object.keys(n.tax).length){
+    const t=document.createElement('div'); t.className='tax-title'; t.textContent='Classificação científica'; tx.appendChild(t);
+    for(const [rank,val] of Object.entries(n.tax)){
+      const row=document.createElement('div');
+      const rk=document.createElement('span'); rk.className='tax-rank'; rk.textContent=rank+': ';
+      const vl=document.createElement('span'); vl.className='tax-val'+(rank==='Espécie'?' sci':''); vl.textContent=val;
+      row.appendChild(rk); row.appendChild(vl); tx.appendChild(row);
+    }
+    tx.style.display='block';
+  } else tx.style.display='none';
+  $('infoCard').style.display='block';
+}
+function closeInfo(){ const c=$('infoCard'); if(c) c.style.display='none'; }
+$('infoClose').addEventListener('click',closeInfo);
+
+function sel(){ return allNodes.find(n=>n.id===selectedId); }
+function selectNode(id){ selectedId=id; updateEditorForm(); renderSVG(); }
+
+function updateEditorForm(){
+  const n=sel();
+  if(!n){ $('noSel').style.display='block'; $('editFields').style.display='none'; return; }
+  $('noSel').style.display='none'; $('editFields').style.display='block';
+  $('fName').value=n.name||'';
+  $('fSci').value=n.sci||'';
+  $('fAno').value=n.ano||'';
+  $('fTax').value=taxToText(n.tax);
+  $('fDesc').value=n.desc||'';
+  $('fImg').value=(n.img && !n.img.startsWith('data:'))?n.img:'';
+  const pv=$('editPreview');
+  if(n.img){ pv.src=n.img; pv.style.display='block'; } else pv.style.display='none';
+  $('delNode').disabled = !n.parent;
+  $('addSibling').disabled = !n.parent;
+}
+
+function cosmetic(){ layout(); renderSVG(); }
+function structural(){ layout(); renderSVG(); resetState(); }
+
+$('fName').addEventListener('input',()=>{ const n=sel(); if(n){ n.name=$('fName').value; cosmetic(); } });
+$('fSci').addEventListener('input',()=>{ const n=sel(); if(n){ n.sci=$('fSci').value; cosmetic(); } });
+$('fAno').addEventListener('input',()=>{ const n=sel(); if(n){ n.ano=$('fAno').value||undefined; } });
+$('fTax').addEventListener('input',()=>{ const n=sel(); if(n){ n.tax=parseTax($('fTax').value); } });
+$('fDesc').addEventListener('input',()=>{ const n=sel(); if(n){ n.desc=$('fDesc').value||undefined; } });
+$('fImg').addEventListener('input',()=>{ const n=sel(); if(n){ n.img=$('fImg').value||undefined; cosmetic();
+  const pv=$('editPreview'); if(n.img){pv.src=n.img;pv.style.display='block';}else pv.style.display='none'; } });
+$('fFile').addEventListener('change',e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const reader=new FileReader();
+  reader.onload=()=>{ const n=sel(); if(n){ n.img=reader.result; cosmetic();
+    const pv=$('editPreview'); pv.src=reader.result; pv.style.display='block'; $('fImg').value=''; } };
+  reader.readAsDataURL(f);
+});
+$('addChild').addEventListener('click',()=>{
+  const n=sel(); if(!n) return;
+  if(!n.children) n.children=[];
+  const child={ name:'Novo', sci:'', children:[] };
+  n.children.push(child);
+  structural(); selectNode(child.id);
+});
+$('addSibling').addEventListener('click',()=>{
+  const n=sel(); if(!n || !n.parent) return;
+  const p=n.parent;
+  const sib={ name:'Novo', sci:'', children:[] };
+  p.children.splice(p.children.indexOf(n)+1, 0, sib);
+  structural(); selectNode(sib.id);
+});
+$('delNode').addEventListener('click',()=>{
+  const n=sel(); if(!n || !n.parent) return;
+  const p=n.parent; p.children=p.children.filter(c=>c!==n);
+  selectedId=null; structural(); selectNode(p.id);
+});
+
+$('newBtn').addEventListener('click',()=>{
+  if(!confirm('Começar uma nova árvore?')) return;
+  tree={ name:'Ancestral primordial', sci:'', children:[] }; selectedId=null; resetView(); structural();
+  layout(); selectNode(tree.id);
+});
+$('exampleBtn').addEventListener('click',()=>{
+  if(!confirm('Reescrever com Árvore Felidae?')) return;
+  tree=clone(EXAMPLE); selectedId=null; resetView(); structural(); layout(); selectNode(tree.id);
+});
+$('exportBtn').addEventListener('click',()=>{
+  const data=JSON.stringify(serialize(tree),null,2);
+  const blob=new Blob([data],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download='arvore_darwin.json';
+  document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href);
+});
+function applyTree(obj){
+  if(!obj || typeof obj.name!=='string') throw new Error('Documento corrompido.');
+  (function norm(n){ if(!n.children) n.children=[]; n.children.forEach(norm); })(obj);
+  tree=obj; selectedId=null; resetView(); structural(); layout(); selectNode(tree.id);
+}
+$('importBtn').addEventListener('click',()=>$('importFile').click());
+$('importFile').addEventListener('change',e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{ applyTree(JSON.parse(reader.result)); }
+    catch(err){ alert('Erro na leitura: '+err.message); }
+    e.target.value='';
+  };
+  reader.readAsText(f);
+});
+$('collectionSel').addEventListener('change',e=>{
+  const v=e.target.value;
+  if(v==='__felidae'){ applyTree(clone(EXAMPLE)); return; }
+  fetch(encodeURI(v))
+    .then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+    .then(obj=>applyTree(obj))
+    .catch(err=>alert('Não foi possível carregar a coleção: '+err.message+
+      '\n\nOs exemplos só funcionam com o site publicado (ex.: GitHub Pages) ou em um servidor local — não ao abrir o arquivo direto do disco (file://).'));
+});
+
+$('playBtn').addEventListener('click',()=>{
+  if(playing){ stopAnim(); $('playBtn').innerHTML='Retomar'; return; }
+  if(segIdx>=waypoints.length-1) resetState();
+  playing=true; last=0; $('playBtn').innerHTML='Pausar';
+  raf=requestAnimationFrame(loop);
+});
+$('stepBtn').addEventListener('click',()=>{ stopAnim(); $('playBtn').innerHTML='Retomar Relato'; stepSegment(); });
+$('resetBtn').addEventListener('click',resetState);
+document.querySelectorAll('#algoSeg button').forEach(b=>{
+  b.addEventListener('click',()=>{ document.querySelectorAll('#algoSeg button').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active'); algo=b.dataset.algo; resetState(); });
+});
+
+function setMode(m){
+  editMode=(m==='edit'); stopAnim(); closeInfo();
+  document.querySelectorAll('#modeSeg button').forEach(x=>x.classList.toggle('active',x.dataset.mode===m));
+  $('exploreControls').style.display = editMode?'none':'flex';
+  $('editControls').style.display    = editMode?'flex':'none';
+  $('explorePanel').style.display    = editMode?'none':'block';
+  $('editPanel').style.display       = editMode?'block':'none';
+  layout(); renderSVG();
+  if(editMode){ if(selectedId==null && allNodes[0]) selectedId=allNodes[0].id; selectNode(selectedId); }
+  else resetState();
+}
+document.querySelectorAll('#modeSeg button').forEach(b=>{
+  b.addEventListener('click',()=>setMode(b.dataset.mode));
+});
+
+const tip=$('tip');
+function showTip(target){
+  tip.textContent=target.dataset.tip; tip.classList.add('show');
+  const r=target.getBoundingClientRect(), tr=tip.getBoundingClientRect();
+  let left=r.left+r.width/2-tr.width/2;
+  left=Math.max(8,Math.min(left,window.innerWidth-tr.width-8));
+  const top=r.top-tr.height-12;
+  tip.style.left=left+'px'; tip.style.top=(top<8?r.bottom+12:top)+'px';
+}
+document.querySelectorAll('[data-tip]').forEach(b=>{
+  b.addEventListener('mouseenter',()=>showTip(b));
+  b.addEventListener('mouseleave',()=>tip.classList.remove('show'));
+});
+
+$('zoomIn').addEventListener('click',()=>zoomAt(VBW/2,VBH/2, zoom*1.25));
+$('zoomOut').addEventListener('click',()=>zoomAt(VBW/2,VBH/2, zoom*0.8));
+$('zoomReset').addEventListener('click',resetView);
+
+svg.addEventListener('wheel',e=>{
+  e.preventDefault();
+  const p=toViewBox(e.clientX,e.clientY);
+  zoomAt(p.x, p.y, zoom*(e.deltaY<0?1.12:0.89));
+},{passive:false});
+
+let dragging=false, dsx=0, dsy=0;
+svg.addEventListener('mousedown',e=>{ dragging=true; dsx=e.clientX; dsy=e.clientY; svg.classList.add('grabbing'); });
+window.addEventListener('mousemove',e=>{
+  if(!dragging) return;
+  const r=svg.getBoundingClientRect();
+  const dx=e.clientX-dsx, dy=e.clientY-dsy;
+  if(Math.abs(dx)+Math.abs(dy)>3) closeInfo();
+  panX += dx*(VBW/r.width); panY += dy*(VBH/r.height);
+  dsx=e.clientX; dsy=e.clientY; applyTransform();
+});
+window.addEventListener('mouseup',()=>{ if(dragging){ dragging=false; svg.classList.remove('grabbing'); } });
+
+setMode('explore');
+</script>
+</div>
+</body>
+</html>
