@@ -11,7 +11,7 @@
         {
           "name": "Mariposas-mandibuladas",
           "sci": "Micropterigidae",
-          "ano": "1857 (Herrich-Schäffer)",
+          "ano": "1855 (Herrich-Schäffer)",
           "tax": {
             "Reino": "Animalia",
             "Filo": "Arthropoda",
@@ -37,7 +37,7 @@
             {
               "name": "Mariposa-fantasma",
               "sci": "Hepialidae",
-              "ano": "1832 (Stephens)",
+              "ano": "1829 (Stephens)",
               "tax": {
                 "Reino": "Animalia",
                 "Filo": "Arthropoda",
@@ -193,9 +193,9 @@
                           ]
                         },
                         {
-                          "name": "Borboleta-colibri",
+                          "name": "Mariposa-esfinge",
                           "sci": "Agrius convolvuli",
-                          "ano": "1802 (Latreille)",
+                          "ano": "1758 (Linnaeus)",
                           "tax": {
                             "Reino": "Animalia",
                             "Filo": "Arthropoda",
@@ -216,7 +216,7 @@
                         {
                           "name": "borboleta-saltadora-grande",
                           "sci": "Ochlodes sylvanus",
-                          "ano": "1809 (Latreille)",
+                          "ano": "1777 (Esper)",
                           "tax": {
                             "Reino": "Animalia",
                             "Filo": "Arthropoda",
@@ -224,7 +224,7 @@
                             "Ordem": "Lepidoptera",
                             "Família": "Hesperiidae"
                           },
-                          "desc": "Grupo de borboletas robustas de voo extremamente rápido e saltitante. São o grupo mais basal e primitivo das borboletas, com traços mistos de mariposa.",
+                          "desc": "Grupo de borboletas robustas de voo extremamente rápido e saltitante. São um dos grupos mais basais das borboletas, com traços mistos de mariposa.",
                           "img": "https://translate.google.com/website?sl=en&tl=pt&hl=pt&client=srp&u=https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/2014.06.27.-2-Kaefertaler_Wald-Mannheim--Rostfarbiger_Dickkopffalter-Maennchen.jpg/500px-2014.06.27.-2-Kaefertaler_Wald-Mannheim--Rostfarbiger_Dickkopffalter-Maennchen.jpg"
                         },
                         {
@@ -257,13 +257,13 @@
                                 "Ordem": "Lepidoptera",
                                 "Família": "Pieridae"
                               },
-                              "desc": "Família de borboletas de porte médio cujas asas adquirem suas pigmentações amarelas, brancas ou laranjas a partir de moléculas derivadas de seus excrementos.",
+                              "desc": "Família de borboletas de porte médio cujas asas devem suas pigmentações amarelas, brancas ou laranjas a pterinas — pigmentos derivados de resíduos nitrogenados do próprio metabolismo (ácido úrico).",
                               "img": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Large_white_spread_wings.jpg"
                             },
                             {
                               "name": "Borboleta-azul-comum",
                               "sci": "Polyommatus icarus",
-                              "ano": "1815 (Leach)",
+                              "ano": "1775 (Rottemburg)",
                               "tax": {
                                 "Reino": "Animalia",
                                 "Filo": "Arthropoda",
@@ -297,7 +297,7 @@
                                 {
                                   "name": "Borboleta-coruja",
                                   "sci": "Caligo beltrao",
-                                  "ano": "1818 (Hübner)",
+                                  "ano": "1801 (Illiger)",
                                   "tax": {
                                     "Reino": "Animalia",
                                     "Filo": "Arthropoda",

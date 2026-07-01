@@ -1,51 +1,123 @@
 {
   "name": "Ancestral dos primatas antropoides",
-  "sci": "Anthropoidea",
-  "desc": "Ancestral comum dos macacos e dos hominídeos, do qual descendem os gibões e os grandes primatas.",
+  "sci": "Hominoidea",
+  "desc": "Ancestral comum dos macacos antropoides (hominoides), do qual descendem os gibões e os grandes primatas.",
   "children": [
-    { "name": "Gibão", "sci": "Hylobates lar", "ano": "1771 (Linnaeus)",
-      "tax": { "Reino": "Animalia", "Filo": "Chordata", "Classe": "Mammalia", "Ordem": "Primates", "Família": "Hylobatidae", "Gênero": "Hylobates", "Espécie": "Hylobates lar" },
+    {
+      "name": "Gibão",
+      "sci": "Hylobates lar",
+      "ano": "1771 (Linnaeus)",
+      "tax": {
+        "Reino": "Animalia",
+        "Filo": "Chordata",
+        "Classe": "Mammalia",
+        "Ordem": "Primates",
+        "Família": "Hylobatidae",
+        "Gênero": "Hylobates",
+        "Espécie": "Hylobates lar"
+      },
       "desc": "Pequeno primata asiático, extremamente ágil, que se desloca balançando entre os galhos (braquiação).",
-      "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/265476979/medium.jpg" },
+      "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/265476979/medium.jpg"
+    },
     {
       "name": "Ancestral dos grandes primatas",
       "sci": "Hominidae",
       "desc": "Ancestral dos grandes primatas: orangotangos, gorilas, chimpanzés e humanos.",
       "children": [
-        { "name": "Orangotango", "sci": "Pongo pygmaeus", "ano": "1760 (Linnaeus)",
-          "tax": { "Reino": "Animalia", "Filo": "Chordata", "Classe": "Mammalia", "Ordem": "Primates", "Família": "Hominidae", "Gênero": "Pongo", "Espécie": "Pongo pygmaeus" },
+        {
+          "name": "Orangotango",
+          "sci": "Pongo pygmaeus",
+          "ano": "1760 (Linnaeus)",
+          "tax": {
+            "Reino": "Animalia",
+            "Filo": "Chordata",
+            "Classe": "Mammalia",
+            "Ordem": "Primates",
+            "Família": "Hominidae",
+            "Gênero": "Pongo",
+            "Espécie": "Pongo pygmaeus"
+          },
           "desc": "Grande primata arborícola do Sudeste Asiático (Bornéu). É o ramo mais antigo dos grandes primatas.",
-          "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/251457903/medium.jpeg" },
+          "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/251457903/medium.jpeg"
+        },
         {
           "name": "Ancestral africano",
           "sci": "Homininae",
           "desc": "Ancestral dos hominídeos africanos: gorilas, chimpanzés e humanos.",
           "children": [
-            { "name": "Gorila", "sci": "Gorilla gorilla", "ano": "1847 (Savage)",
-              "tax": { "Reino": "Animalia", "Filo": "Chordata", "Classe": "Mammalia", "Ordem": "Primates", "Família": "Hominidae", "Gênero": "Gorilla", "Espécie": "Gorilla gorilla" },
+            {
+              "name": "Gorila",
+              "sci": "Gorilla gorilla",
+              "ano": "1847 (Savage)",
+              "tax": {
+                "Reino": "Animalia",
+                "Filo": "Chordata",
+                "Classe": "Mammalia",
+                "Ordem": "Primates",
+                "Família": "Hominidae",
+                "Gênero": "Gorilla",
+                "Espécie": "Gorilla gorilla"
+              },
               "desc": "O maior primata vivo. Vive em grupos nas florestas da África Central e se alimenta principalmente de vegetais.",
-              "img": "https://static.inaturalist.org/photos/103269312/medium.jpg" },
+              "img": "https://upload.wikimedia.org/wikipedia/commons/5/50/Male_gorilla_in_SF_zoo.jpg"
+            },
             {
               "name": "Ancestral humano-chimpanzé",
               "desc": "Ancestral comum de humanos e chimpanzés, que viveu há cerca de 6 a 7 milhões de anos.",
               "children": [
-                { "name": "Humano", "sci": "Homo sapiens", "ano": "1758 (Linnaeus)",
-                  "tax": { "Reino": "Animalia", "Filo": "Chordata", "Classe": "Mammalia", "Ordem": "Primates", "Família": "Hominidae", "Gênero": "Homo", "Espécie": "Homo sapiens" },
+                {
+                  "name": "Humano",
+                  "sci": "Homo sapiens",
+                  "ano": "1758 (Linnaeus)",
+                  "tax": {
+                    "Reino": "Animalia",
+                    "Filo": "Chordata",
+                    "Classe": "Mammalia",
+                    "Ordem": "Primates",
+                    "Família": "Hominidae",
+                    "Gênero": "Homo",
+                    "Espécie": "Homo sapiens"
+                  },
                   "desc": "Nossa espécie. Seus parentes vivos mais próximos são o chimpanzé e o bonobo.",
-                  "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/80550183/medium.jpg" },
+                  "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/80550183/medium.jpg"
+                },
                 {
                   "name": "Ancestral do gênero Pan",
                   "sci": "Pan",
                   "desc": "Ancestral comum do chimpanzé e do bonobo.",
                   "children": [
-                    { "name": "Chimpanzé", "sci": "Pan troglodytes", "ano": "1775 (Blumenbach)",
-                      "tax": { "Reino": "Animalia", "Filo": "Chordata", "Classe": "Mammalia", "Ordem": "Primates", "Família": "Hominidae", "Gênero": "Pan", "Espécie": "Pan troglodytes" },
+                    {
+                      "name": "Chimpanzé",
+                      "sci": "Pan troglodytes",
+                      "ano": "1775 (Blumenbach)",
+                      "tax": {
+                        "Reino": "Animalia",
+                        "Filo": "Chordata",
+                        "Classe": "Mammalia",
+                        "Ordem": "Primates",
+                        "Família": "Hominidae",
+                        "Gênero": "Pan",
+                        "Espécie": "Pan troglodytes"
+                      },
                       "desc": "Primata muito inteligente que usa ferramentas. Vive em comunidades na África.",
-                      "img": "https://static.inaturalist.org/photos/184174969/medium.jpeg" },
-                    { "name": "Bonobo", "sci": "Pan paniscus", "ano": "1929 (Schwarz)",
-                      "tax": { "Reino": "Animalia", "Filo": "Chordata", "Classe": "Mammalia", "Ordem": "Primates", "Família": "Hominidae", "Gênero": "Pan", "Espécie": "Pan paniscus" },
+                      "img": "https://static.inaturalist.org/photos/184174969/medium.jpeg"
+                    },
+                    {
+                      "name": "Bonobo",
+                      "sci": "Pan paniscus",
+                      "ano": "1929 (Schwarz)",
+                      "tax": {
+                        "Reino": "Animalia",
+                        "Filo": "Chordata",
+                        "Classe": "Mammalia",
+                        "Ordem": "Primates",
+                        "Família": "Hominidae",
+                        "Gênero": "Pan",
+                        "Espécie": "Pan paniscus"
+                      },
                       "desc": "Espécie-irmã do chimpanzé, conhecida por sociedades mais pacíficas. Vive ao sul do rio Congo.",
-                      "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/75550229/medium.jpeg" }
+                      "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/75550229/medium.jpeg"
+                    }
                   ]
                 }
               ]

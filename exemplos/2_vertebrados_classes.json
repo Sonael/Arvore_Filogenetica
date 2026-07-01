@@ -3,41 +3,101 @@
   "sci": "Vertebrata",
   "desc": "Ancestral comum dos animais com coluna vertebral (peixes, anfíbios, répteis, aves e mamíferos).",
   "children": [
-    { "name": "Peixe (perca)", "sci": "Perca fluviatilis", "ano": "1758 (Linnaeus)",
-      "tax": { "Reino": "Animalia", "Filo": "Chordata", "Classe": "Actinopterygii", "Ordem": "Perciformes", "Família": "Percidae", "Gênero": "Perca", "Espécie": "Perca fluviatilis" },
+    {
+      "name": "Peixe (perca)",
+      "sci": "Perca fluviatilis",
+      "ano": "1758 (Linnaeus)",
+      "tax": {
+        "Reino": "Animalia",
+        "Filo": "Chordata",
+        "Classe": "Actinopterygii",
+        "Ordem": "Perciformes",
+        "Família": "Percidae",
+        "Gênero": "Perca",
+        "Espécie": "Perca fluviatilis"
+      },
       "desc": "Peixe ósseo de água doce. Representa os vertebrados aquáticos, que respiram por brânquias.",
-      "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/194421912/medium.jpg" },
+      "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/194421912/medium.jpg"
+    },
     {
       "name": "Ancestral dos tetrápodes",
       "sci": "Tetrapoda",
       "desc": "Ancestral dos vertebrados de quatro patas, que conquistaram o ambiente terrestre.",
       "children": [
-        { "name": "Sapo", "sci": "Lithobates catesbeianus", "ano": "1802 (Shaw)",
-          "tax": { "Reino": "Animalia", "Filo": "Chordata", "Classe": "Amphibia", "Ordem": "Anura", "Família": "Ranidae", "Gênero": "Lithobates", "Espécie": "Lithobates catesbeianus" },
+        {
+          "name": "Rã-touro",
+          "sci": "Lithobates catesbeianus",
+          "ano": "1802 (Shaw)",
+          "tax": {
+            "Reino": "Animalia",
+            "Filo": "Chordata",
+            "Classe": "Amphibia",
+            "Ordem": "Anura",
+            "Família": "Ranidae",
+            "Gênero": "Lithobates",
+            "Espécie": "Lithobates catesbeianus"
+          },
           "desc": "Anfíbio que vive entre a água e a terra; sua fase larval (girino) é aquática.",
-          "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/519633752/medium.jpg" },
+          "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/519633752/medium.jpg"
+        },
         {
           "name": "Ancestral dos amniotas",
           "sci": "Amniota",
           "desc": "Ancestral dos vertebrados cujo ovo possui membranas (âmnio), permitindo a reprodução fora da água.",
           "children": [
-            { "name": "Camundongo", "sci": "Mus musculus", "ano": "1758 (Linnaeus)",
-              "tax": { "Reino": "Animalia", "Filo": "Chordata", "Classe": "Mammalia", "Ordem": "Rodentia", "Família": "Muridae", "Gênero": "Mus", "Espécie": "Mus musculus" },
+            {
+              "name": "Camundongo",
+              "sci": "Mus musculus",
+              "ano": "1758 (Linnaeus)",
+              "tax": {
+                "Reino": "Animalia",
+                "Filo": "Chordata",
+                "Classe": "Mammalia",
+                "Ordem": "Rodentia",
+                "Família": "Muridae",
+                "Gênero": "Mus",
+                "Espécie": "Mus musculus"
+              },
               "desc": "Mamífero de sangue quente e com pelos. Representa a linhagem dos sinapsídeos.",
-              "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/2074835/medium.jpg" },
+              "img": "https://pictureinsect.com/image-handle/image/1080/406006217735143424.jpeg?x-oss-process=image/format,webp/resize,s_343&v=1.0"
+            },
             {
               "name": "Ancestral répteis e aves",
               "sci": "Sauropsida",
               "desc": "Ancestral comum dos répteis e das aves.",
               "children": [
-                { "name": "Lagarto", "sci": "Lacerta agilis", "ano": "1758 (Linnaeus)",
-                  "tax": { "Reino": "Animalia", "Filo": "Chordata", "Classe": "Reptilia", "Ordem": "Squamata", "Família": "Lacertidae", "Gênero": "Lacerta", "Espécie": "Lacerta agilis" },
+                {
+                  "name": "Lagarto",
+                  "sci": "Lacerta agilis",
+                  "ano": "1758 (Linnaeus)",
+                  "tax": {
+                    "Reino": "Animalia",
+                    "Filo": "Chordata",
+                    "Classe": "Reptilia",
+                    "Ordem": "Squamata",
+                    "Família": "Lacertidae",
+                    "Gênero": "Lacerta",
+                    "Espécie": "Lacerta agilis"
+                  },
                   "desc": "Réptil de pele com escamas e ectotérmico (regula a temperatura pelo ambiente).",
-                  "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/343743366/medium.jpeg" },
-                { "name": "Pombo", "sci": "Columba livia", "ano": "1789 (Gmelin)",
-                  "tax": { "Reino": "Animalia", "Filo": "Chordata", "Classe": "Aves", "Ordem": "Columbiformes", "Família": "Columbidae", "Gênero": "Columba", "Espécie": "Columba livia" },
+                  "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/343743366/medium.jpeg"
+                },
+                {
+                  "name": "Pombo",
+                  "sci": "Columba livia",
+                  "ano": "1789 (Gmelin)",
+                  "tax": {
+                    "Reino": "Animalia",
+                    "Filo": "Chordata",
+                    "Classe": "Aves",
+                    "Ordem": "Columbiformes",
+                    "Família": "Columbidae",
+                    "Gênero": "Columba",
+                    "Espécie": "Columba livia"
+                  },
                   "desc": "Ave. As aves são amniotas descendentes dos dinossauros terópodes.",
-                  "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/466776975/medium.jpg" }
+                  "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/466776975/medium.jpg"
+                }
               ]
             }
           ]

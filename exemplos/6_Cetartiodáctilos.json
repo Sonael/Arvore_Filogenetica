@@ -11,8 +11,6 @@
         {
           "name": "Lhama",
           "sci": "Lama glama",
-          "desc": "Mamífero sul-americano domesticado, amplamente utilizado como animal de carga e fonte de lã nas montanhas andinas.",
-          "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/152912423/medium.jpg",
           "ano": "1758 (Linnaeus)",
           "tax": {
             "Reino": "Animalia",
@@ -22,7 +20,9 @@
             "Família": "Camelidae",
             "Gênero": "Lama",
             "Espécie": "Lama glama"
-          }
+          },
+          "desc": "Mamífero sul-americano domesticado, amplamente utilizado como animal de carga e fonte de lã nas montanhas andinas.",
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCL6WX3pbbYIOxEXfcwuetnNma7vR4XLayLyZTU1z1gg&s=10"
         }
       ]
     },
@@ -39,8 +39,6 @@
             {
               "name": "Javali",
               "sci": "Sus scrofa",
-              "desc": "Antepassado selvagem do porco-doméstico, de hábitos predominantemente noturnos e com ampla distribuição global.",
-              "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/101880435/medium.jpg",
               "ano": "1758 (Linnaeus)",
               "tax": {
                 "Reino": "Animalia",
@@ -50,7 +48,9 @@
                 "Família": "Suidae",
                 "Gênero": "Sus",
                 "Espécie": "Sus scrofa"
-              }
+              },
+              "desc": "Antepassado selvagem do porco-doméstico, de hábitos predominantemente noturnos e com ampla distribuição global.",
+              "img": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Wildschwein%2C_N%C3%A4he_Pulverstampftor_%28cropped%29.jpg"
             }
           ]
         },
@@ -67,8 +67,6 @@
                 {
                   "name": "Girafa",
                   "sci": "Giraffa camelopardalis",
-                  "desc": "O mais alto mamífero terrestre, endêmico das savanas da África, conhecido por seu longo pescoço adaptado para alcançar folhas no topo das árvores.",
-                  "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/334785217/medium.png",
                   "ano": "1758 (Linnaeus)",
                   "tax": {
                     "Reino": "Animalia",
@@ -78,13 +76,13 @@
                     "Família": "Giraffidae",
                     "Gênero": "Giraffa",
                     "Espécie": "Giraffa camelopardalis"
-                  }
+                  },
+                  "desc": "O mais alto mamífero terrestre, endêmico das savanas da África, conhecido por seu longo pescoço adaptado para alcançar folhas no topo das árvores.",
+                  "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQURwsJ7fqVrpsbCSL2RjJY-vkY6y-2cgXXQTskGIRVog&s=10"
                 },
                 {
                   "name": "Boi-doméstico",
                   "sci": "Bos taurus",
-                  "desc": "Mamífero herbívoro domesticado de enorme importância econômica global, descendente do já extinto auroque.",
-                  "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/105740337/medium.jpg",
                   "ano": "1758 (Linnaeus)",
                   "tax": {
                     "Reino": "Animalia",
@@ -94,7 +92,9 @@
                     "Família": "Bovidae",
                     "Gênero": "Bos",
                     "Espécie": "Bos taurus"
-                  }
+                  },
+                  "desc": "Mamífero herbívoro domesticado de enorme importância econômica global, descendente do já extinto auroque.",
+                  "img": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Hereford_bull_large.jpg"
                 }
               ]
             },
@@ -106,8 +106,6 @@
                 {
                   "name": "Hipopótamo",
                   "sci": "Hippopotamus amphibius",
-                  "desc": "Grande e robusto mamífero semiaquático herbívoro, nativo dos rios e lagos da África subsaariana.",
-                  "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/103269312/medium.jpg",
                   "ano": "1758 (Linnaeus)",
                   "tax": {
                     "Reino": "Animalia",
@@ -117,7 +115,9 @@
                     "Família": "Hippopotamidae",
                     "Gênero": "Hippopotamus",
                     "Espécie": "Hippopotamus amphibius"
-                  }
+                  },
+                  "desc": "Grande e robusto mamífero semiaquático herbívoro, nativo dos rios e lagos da África subsaariana.",
+                  "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYVRSmv6CoTzDw5NfvcS6XXDmygJYX5kc5san-fpKsJg&s=10"
                 },
                 {
                   "name": "Ancestral dos Cetáceos",
@@ -132,8 +132,6 @@
                         {
                           "name": "Baleia-jubarte",
                           "sci": "Megaptera novaeangliae",
-                          "desc": "Grande baleia migratória conhecida por seus saltos espetaculares e pelos longos e complexos cantos emitidos pelos machos.",
-                          "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/39689848/medium.jpg",
                           "ano": "1781 (Borowski)",
                           "tax": {
                             "Reino": "Animalia",
@@ -143,7 +141,9 @@
                             "Família": "Balaenopteridae",
                             "Gênero": "Megaptera",
                             "Espécie": "Megaptera novaeangliae"
-                          }
+                          },
+                          "desc": "Grande baleia migratória conhecida por seus saltos espetaculares e pelos longos e complexos cantos emitidos pelos machos.",
+                          "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/39689848/medium.jpg"
                         }
                       ]
                     },
@@ -155,8 +155,6 @@
                         {
                           "name": "Cachalote",
                           "sci": "Physeter macrocephalus",
-                          "desc": "O maior dos cetáceos com dentes, um predador de águas profundas especializado em caçar lulas gigantes e lulas-colossais.",
-                          "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/115598642/medium.jpg",
                           "ano": "1758 (Linnaeus)",
                           "tax": {
                             "Reino": "Animalia",
@@ -166,7 +164,9 @@
                             "Família": "Physeteridae",
                             "Gênero": "Physeter",
                             "Espécie": "Physeter macrocephalus"
-                          }
+                          },
+                          "desc": "O maior dos cetáceos com dentes, um predador de águas profundas especializado em caçar lulas gigantes e lulas-colossais.",
+                          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYI0zxbov5WcSFxY94KMhwOSIn4W1uyTSAev_BnBgLT3nLATWNUmRuwpiK&s=10"
                         },
                         {
                           "name": "Ancestral dos Delfinídeos",
@@ -176,8 +176,6 @@
                             {
                               "name": "Golfinho-nariz-de-garrafa",
                               "sci": "Tursiops truncatus",
-                              "desc": "A espécie de golfinho mais conhecida e amplamente distribuída do mundo, famosa por sua inteligência, curiosidade e sociabilidade.",
-                              "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/178353051/medium.jpg",
                               "ano": "1821 (Montagu)",
                               "tax": {
                                 "Reino": "Animalia",
@@ -187,13 +185,13 @@
                                 "Família": "Delphinidae",
                                 "Gênero": "Tursiops",
                                 "Espécie": "Tursiops truncatus"
-                              }
+                              },
+                              "desc": "A espécie de golfinho mais conhecida e amplamente distribuída do mundo, famosa por sua inteligência, curiosidade e sociabilidade.",
+                              "img": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Tursiops_truncatus_01-cropped.jpg"
                             },
                             {
                               "name": "Orca",
                               "sci": "Orcinus orca",
-                              "desc": "O maior membro da família dos golfinhos. É um superpredador que vive em estruturas matriarcais complexas e possui diversas táticas de caça em grupo.",
-                              "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/282691010/medium.jpg",
                               "ano": "1758 (Linnaeus)",
                               "tax": {
                                 "Reino": "Animalia",
@@ -203,7 +201,9 @@
                                 "Família": "Delphinidae",
                                 "Gênero": "Orcinus",
                                 "Espécie": "Orcinus orca"
-                              }
+                              },
+                              "desc": "O maior membro da família dos golfinhos. É um superpredador que vive em estruturas matriarcais complexas e possui diversas táticas de caça em grupo.",
+                              "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHRCDYzGAmO_L8ZkVJK5OqcXWalYC4Z7prU1Z4x2PJq2IqYoLMSxvMIj3E&s=10"
                             }
                           ]
                         }

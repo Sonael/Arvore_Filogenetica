@@ -3,41 +3,101 @@
   "sci": "Theropoda",
   "desc": "Ancestral dos dinossauros carnívoros bípedes — o grupo que originou as aves.",
   "children": [
-    { "name": "Tiranossauro", "sci": "Tyrannosaurus rex", "ano": "1905 (Osborn)",
-      "tax": { "Reino": "Animalia", "Filo": "Chordata", "Clado": "Dinosauria", "Ordem": "Saurischia", "Família": "Tyrannosauridae", "Gênero": "Tyrannosaurus", "Espécie": "Tyrannosaurus rex" },
+    {
+      "name": "Tiranossauro",
+      "sci": "Tyrannosaurus rex",
+      "ano": "1905 (Osborn)",
+      "tax": {
+        "Reino": "Animalia",
+        "Filo": "Chordata",
+        "Clado": "Dinosauria",
+        "Ordem": "Saurischia",
+        "Família": "Tyrannosauridae",
+        "Gênero": "Tyrannosaurus",
+        "Espécie": "Tyrannosaurus rex"
+      },
       "desc": "Um dos maiores predadores terrestres que já existiram, viveu no fim do Cretáceo, há cerca de 68 milhões de anos.",
-      "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/609173470/medium.jpg" },
+      "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/609173470/medium.jpg"
+    },
     {
       "name": "Ancestral dos maniraptores",
       "sci": "Maniraptora",
       "desc": "Ancestral dos terópodes de braços longos, muitos deles já cobertos de penas.",
       "children": [
-        { "name": "Velociraptor", "sci": "Velociraptor mongoliensis", "ano": "1924 (Osborn)",
-          "tax": { "Reino": "Animalia", "Filo": "Chordata", "Clado": "Dinosauria", "Ordem": "Saurischia", "Família": "Dromaeosauridae", "Gênero": "Velociraptor", "Espécie": "Velociraptor mongoliensis" },
-          "desc": "Pequeno dinossauro emplumado, ágil e provavelmente caçador em grupo.",
-          "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/334785217/medium.png" },
+        {
+          "name": "Velociraptor",
+          "sci": "Velociraptor mongoliensis",
+          "ano": "1924 (Osborn)",
+          "tax": {
+            "Reino": "Animalia",
+            "Filo": "Chordata",
+            "Clado": "Dinosauria",
+            "Ordem": "Saurischia",
+            "Família": "Dromaeosauridae",
+            "Gênero": "Velociraptor",
+            "Espécie": "Velociraptor mongoliensis"
+          },
+          "desc": "Pequeno dinossauro emplumado e ágil; a hipótese de que caçava em bando ainda é debatida pelos paleontólogos.",
+          "img": "https://i.pinimg.com/564x/46/5e/00/465e00ba5f3d96b360a0f821adbc69a8.jpg"
+        },
         {
           "name": "Ancestral das aves",
           "sci": "Avialae",
           "desc": "Ancestral que deu origem às primeiras aves.",
           "children": [
-            { "name": "Archaeopteryx", "sci": "Archaeopteryx lithographica", "ano": "1861 (von Meyer)",
-              "tax": { "Reino": "Animalia", "Filo": "Chordata", "Clado": "Avialae", "Ordem": "Archaeopterygiformes", "Família": "Archaeopterygidae", "Gênero": "Archaeopteryx", "Espécie": "Archaeopteryx lithographica" },
+            {
+              "name": "Archaeopteryx",
+              "sci": "Archaeopteryx lithographica",
+              "ano": "1861 (von Meyer)",
+              "tax": {
+                "Reino": "Animalia",
+                "Filo": "Chordata",
+                "Clado": "Avialae",
+                "Ordem": "Archaeopterygiformes",
+                "Família": "Archaeopterygidae",
+                "Gênero": "Archaeopteryx",
+                "Espécie": "Archaeopteryx lithographica"
+              },
               "desc": "Famoso fóssil de transição: tinha penas e asas, mas também dentes e cauda óssea, como os dinossauros.",
-              "img": "https://inaturalist-open-data.s3.amazonaws.com/photos/11338374/medium.jpg" },
+              "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG7NH_pKQR3WsAa078ht3QurVtG-VXgC0vFdTKNWM3fbKaxyoTWOuxhAs&s=10"
+            },
             {
               "name": "Ancestral das aves modernas",
               "sci": "Aves",
               "desc": "Ancestral comum de todas as aves atuais.",
               "children": [
-                { "name": "Galinha", "sci": "Gallus gallus", "ano": "1758 (Linnaeus)",
-                  "tax": { "Reino": "Animalia", "Filo": "Chordata", "Classe": "Aves", "Ordem": "Galliformes", "Família": "Phasianidae", "Gênero": "Gallus", "Espécie": "Gallus gallus" },
+                {
+                  "name": "Galinha",
+                  "sci": "Gallus gallus",
+                  "ano": "1758 (Linnaeus)",
+                  "tax": {
+                    "Reino": "Animalia",
+                    "Filo": "Chordata",
+                    "Classe": "Aves",
+                    "Ordem": "Galliformes",
+                    "Família": "Phasianidae",
+                    "Gênero": "Gallus",
+                    "Espécie": "Gallus gallus"
+                  },
                   "desc": "Ave doméstica. Como toda ave, é literalmente um dinossauro terópode vivo.",
-                  "img": "https://static.inaturalist.org/photos/65623665/medium.jpeg" },
-                { "name": "Águia-real", "sci": "Aquila chrysaetos", "ano": "1758 (Linnaeus)",
-                  "tax": { "Reino": "Animalia", "Filo": "Chordata", "Classe": "Aves", "Ordem": "Accipitriformes", "Família": "Accipitridae", "Gênero": "Aquila", "Espécie": "Aquila chrysaetos" },
+                  "img": "https://static.inaturalist.org/photos/65623665/medium.jpeg"
+                },
+                {
+                  "name": "Águia-real",
+                  "sci": "Aquila chrysaetos",
+                  "ano": "1758 (Linnaeus)",
+                  "tax": {
+                    "Reino": "Animalia",
+                    "Filo": "Chordata",
+                    "Classe": "Aves",
+                    "Ordem": "Accipitriformes",
+                    "Família": "Accipitridae",
+                    "Gênero": "Aquila",
+                    "Espécie": "Aquila chrysaetos"
+                  },
                   "desc": "Poderosa ave de rapina, exemplo da diversidade e do sucesso das aves modernas.",
-                  "img": "https://static.inaturalist.org/photos/168362446/medium.jpg" }
+                  "img": "https://as2.ftcdn.net/jpg/04/02/75/87/1000_F_402758742_UcLhqiAkRU7bm7G1jGaWrpHWaCJ273NR.jpg"
+                }
               ]
             }
           ]
