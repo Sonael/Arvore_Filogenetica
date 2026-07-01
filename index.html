@@ -21,18 +21,20 @@
   header h1{margin:0;font-size:26px;font-style:italic;color:var(--accent2)}
   header p{margin:8px 0 0;color:var(--muted);font-size:14px;line-height:1.6}
   
-  /* O container principal imita uma página de livro centralizada */
-  body > div:not(#tip) { /* aplica na div mãe de .wrap e .controls se fossem soltas, mas aqui usaremos uma div de contorno mentalmente */ }
-  .book-container { max-width: 1300px; margin: 0 auto; background: var(--panel); box-shadow: 0 15px 35px rgba(0,0,0,0.3); border: 1px solid var(--line); }
+  /* Adicionado overflow e radius para a caixa ser blindada e não vazar de jeito nenhum */
+  .book-container { max-width: 1300px; margin: 0 auto; background: var(--panel); box-shadow: 0 15px 35px rgba(0,0,0,0.3); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
 
-  .wrap{display:flex;gap:0;height:calc(100vh - 240px);flex-wrap:wrap}
+  /* Adicionado min-height para garantir que sempre tenha respiro em telas pequenas */
+  .wrap{display:flex;gap:0;height:calc(100vh - 240px); min-height:400px; flex-wrap:wrap;}
   
-  .stage{flex:1 1 640px;min-width:340px;position:relative;background:transparent;}
+  /* A MÁGICA ESTÁ AQUI: min-height: 0 impede que o SVG empurre a caixa para baixo */
+  .stage{flex:1 1 640px;min-width:340px;min-height:0;position:relative;background:transparent;overflow:hidden;}
   
   .side{flex:0 0 360px;background:var(--panel2);border-left:2px dashed var(--line);
     padding:25px;overflow:auto;max-height:calc(100vh - 240px); box-shadow:inset 10px 0 15px -10px rgba(0,0,0,0.1)}
     
-  svg{width:100%;height:100%;display:block;}
+  /* position absolute e top/left força a árvore a respeitar exatamente as 4 paredes da stage */
+  #svg{position:absolute;top:0;left:0;width:100%;height:100%;display:block;overflow:hidden;}
   
   .controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;
     padding:15px 25px;background:var(--panel2);border-bottom:2px dashed var(--line)}
@@ -187,7 +189,7 @@
 
   <div class="wrap">
     <div class="stage">
-      <svg id="svg" viewBox="0 0 960 600" preserveAspectRatio="xMidYMid meet"></svg>
+      <svg id="svg" viewBox="0 0 960 600" preserveAspectRatio="xMinYMin meet"></svg>
       <div id="infoCard">
         <button id="infoClose" title="Fechar">&times;</button>
         <img id="infoImg" alt="">
@@ -204,6 +206,7 @@
         <button id="zoomReset" title="Redefinir zoom"><svg class="ic" viewBox="0 0 16 16"><path d="M2.5 6V2.5H6"/><path d="M13.5 6V2.5H10"/><path d="M2.5 10v3.5H6"/><path d="M13.5 10v3.5H10"/></svg></button>
       </div>
     </div>
+    
     <div class="side">
       <div id="explorePanel">
         <h2>Anotações do Percurso</h2>
@@ -367,7 +370,7 @@ function layout(){
   })(tree,0,null);
   totalNodes=idc; totalEdges=Math.max(0,idc-1);
   W = LEFT + maxDepth*LEVEL + 290;
-  H = TOP + Math.max(1,leaves)*LEAFGAP;
+  H = TOP + Math.max(1,leaves)*LEAFGAP + 120;
   VBW = W; VBH = Math.max(H,360);
   svg.setAttribute('viewBox',`0 0 ${VBW} ${VBH}`);
 }
@@ -447,9 +450,17 @@ function zoomAt(sx, sy, newZoom){
   applyTransform();
 }
 function resetView(){ panX=0; panY=0; zoom=1; applyTransform(); }
+
 function toViewBox(clientX, clientY){
-  const r=svg.getBoundingClientRect();
-  return { x:(clientX-r.left)*(VBW/r.width), y:(clientY-r.top)*(VBH/r.height) };
+  const pt = svg.createSVGPoint();
+  pt.x = clientX;
+  pt.y = clientY;
+  const ctm = svg.getScreenCTM();
+  if (ctm) {
+    const svgP = pt.matrixTransform(ctm.inverse());
+    return { x: svgP.x, y: svgP.y };
+  }
+  return { x: 0, y: 0 };
 }
 
 function buildDFS(){
@@ -624,11 +635,12 @@ $('delNode').addEventListener('click',()=>{
 $('newBtn').addEventListener('click',()=>{
   if(!confirm('Começar uma nova árvore?')) return;
   tree={ name:'Ancestral primordial', sci:'', children:[] }; selectedId=null; resetView(); structural();
-  layout(); selectNode(tree.id);
+  if(editMode && tree.id != null) selectNode(tree.id);
 });
 $('exampleBtn').addEventListener('click',()=>{
   if(!confirm('Reescrever com Árvore Felidae?')) return;
-  tree=clone(EXAMPLE); selectedId=null; resetView(); structural(); layout(); selectNode(tree.id);
+  tree=clone(EXAMPLE); selectedId=null; resetView(); structural();
+  if(editMode && tree.id != null) selectNode(tree.id);
 });
 $('exportBtn').addEventListener('click',()=>{
   const data=JSON.stringify(serialize(tree),null,2);
@@ -640,7 +652,8 @@ $('exportBtn').addEventListener('click',()=>{
 function applyTree(obj){
   if(!obj || typeof obj.name!=='string') throw new Error('Documento corrompido.');
   (function norm(n){ if(!n.children) n.children=[]; n.children.forEach(norm); })(obj);
-  tree=obj; selectedId=null; resetView(); structural(); layout(); selectNode(tree.id);
+  tree=obj; selectedId=null; resetView(); structural();
+  if(editMode && tree.id != null) selectNode(tree.id);
 }
 $('importBtn').addEventListener('click',()=>$('importFile').click());
 $('importFile').addEventListener('change',e=>{
@@ -716,13 +729,21 @@ svg.addEventListener('wheel',e=>{
 },{passive:false});
 
 let dragging=false, dsx=0, dsy=0;
-svg.addEventListener('mousedown',e=>{ dragging=true; dsx=e.clientX; dsy=e.clientY; svg.classList.add('grabbing'); });
+svg.addEventListener('mousedown',e=>{ 
+  if(e.button !== 0) return;
+  dragging=true; dsx=e.clientX; dsy=e.clientY; svg.classList.add('grabbing'); 
+});
 window.addEventListener('mousemove',e=>{
   if(!dragging) return;
-  const r=svg.getBoundingClientRect();
   const dx=e.clientX-dsx, dy=e.clientY-dsy;
   if(Math.abs(dx)+Math.abs(dy)>3) closeInfo();
-  panX += dx*(VBW/r.width); panY += dy*(VBH/r.height);
+  
+  const ctm = svg.getScreenCTM();
+  if(ctm) {
+    panX += dx / ctm.a;
+    panY += dy / ctm.d;
+  }
+  
   dsx=e.clientX; dsy=e.clientY; applyTransform();
 });
 window.addEventListener('mouseup',()=>{ if(dragging){ dragging=false; svg.classList.remove('grabbing'); } });
