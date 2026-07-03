@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Testes — Árvore Filogenética</title>
+<style>
+  body{font-family:"Georgia",serif;background:#d1c4a9;color:#3e2819;margin:0;padding:24px;}
+  h1{color:#800000;font-style:italic;}
+  #summary{font-size:18px;font-weight:bold;margin:12px 0;padding:10px 14px;border-radius:6px;display:inline-block;}
+  .ok{background:#dff0d8;color:#2f6b2f;border:1px solid #2f6b2f;}
+  .fail{background:#f2dede;color:#8b0000;border:1px solid #8b0000;}
+  ul{list-style:none;padding:0;max-width:820px;}
+  li{padding:8px 12px;margin:6px 0;border-radius:4px;border-left:5px solid #999;background:#eaddcf;}
+  li.pass{border-left-color:#2f6b2f;}
+  li.fail{border-left-color:#8b0000;background:#f7e4e4;}
+  .tag{font-weight:bold;font-family:monospace;margin-right:8px;}
+  .detail{color:#705335;font-size:13px;font-style:italic;}
+  iframe{position:absolute;width:1000px;height:700px;left:-9999px;top:-9999px;border:0;}
+  a{color:#800000;}
+</style>
+</head>
+<body>
+  <h1>Testes automáticos</h1>
+  <p>Carrega o app real e valida as funções de percurso (DFS/BFS) e de ancestral comum (MRCA). Não altera a sua árvore salva.</p>
+  <div id="summary">Executando…</div>
+  <ul id="list"></ul>
+  <p><a href="index.html">← voltar ao app</a></p>
+
+  <iframe id="app" src="index.html"></iframe>
+
+<script>
+const TEST_SRC = `(function(){
+  const results=[];
+  const ok=(name,cond,detail)=>results.push({name,pass:!!cond,detail:detail||''});
+  // usa a árvore de exemplo sem persistir (guarda e restaura a atual)
+  const _bak = JSON.stringify(serialize(tree));
+  try{
+    tree = clone(EXAMPLE); layout();
+    const byName={}; allNodes.forEach(n=>byName[n.name]=n);
+    const N = totalNodes;
+
+    // ---- BFS ----
+    const bfs = buildBFS();
+    ok('BFS visita todos os nós uma vez', bfs.filter(w=>w.arrive).length===N, 'visitados='+bfs.filter(w=>w.arrive).length+' / total='+N);
+    ok('BFS começa pela raiz', bfs[0] && bfs[0].id===tree.id);
+    let bfsMono=true,last=-1; const depthById={}; allNodes.forEach(n=>depthById[n.id]=n.depth);
+    bfs.forEach(w=>{ const d=depthById[w.id]; if(d<last) bfsMono=false; last=d; });
+    ok('BFS respeita a ordem de níveis (profundidade não-decrescente)', bfsMono);
+
+    // ---- DFS ----
+    const dfs = buildDFS();
+    const arr = dfs.filter(w=>w.arrive).map(w=>w.id);
+    ok('DFS visita todos os nós uma vez', arr.length===N && new Set(arr).size===N, 'visitados='+arr.length+' / total='+N);
+    ok('DFS começa pela raiz', dfs[0] && dfs[0].id===tree.id);
+    const pos={}; arr.forEach((id,i)=>pos[id]=i);
+    let pre=true; allNodes.forEach(n=>{ if(n.parent && pos[n.parent.id]>pos[n.id]) pre=false; });
+    ok('DFS em pré-ordem (cada pai antes dos filhos)', pre);
+
+    // ---- MRCA ----
+    const tigre=byName['Tigre'], leoNeves=byName['Leopardo-das-neves'], leao=byName['Leão'],
+          leopardo=byName['Leopardo'], gato=byName['Gato doméstico'], pantherinae=byName['Ancestral Pantherinae'];
+    const m1=computeMRCA(tigre,leoNeves);
+    ok('MRCA(Tigre, Leopardo-das-neves)', m1 && m1.name==='Ancestral tigre+leopardo-das-neves', m1&&m1.name);
+    const m2=computeMRCA(leao,leopardo);
+    ok('MRCA(Leão, Leopardo)', m2 && m2.name==='Ancestral leão+leopardo', m2&&m2.name);
+    const m3=computeMRCA(tigre,gato);
+    ok('MRCA(Tigre, Gato doméstico) = raiz', m3 && m3.id===tree.id, m3&&m3.name);
+    ok('MRCA(nó, ele mesmo) = o próprio nó', computeMRCA(tigre,tigre)===tigre);
+    ok('MRCA é simétrico', computeMRCA(leao,leopardo)===computeMRCA(leopardo,leao));
+    ok('MRCA(folha, seu ancestral) = o ancestral', computeMRCA(tigre,pantherinae)===pantherinae);
+
+    // ---- validação de JSON ----
+    ok('validateTree aceita a árvore de exemplo', validateTree(serialize(tree))===null);
+    ok('validateTree rejeita nó sem nome', typeof validateTree({name:'r',children:[{sci:'x'}]})==='string');
+    ok('validateTree rejeita age não-numérico', typeof validateTree({name:'r',age:'onze'})==='string');
+    ok('validateTree rejeita children não-lista', typeof validateTree({name:'r',children:{}})==='string');
+  } finally {
+    // restaura a árvore original do usuário
+    tree = JSON.parse(_bak);
+    (function norm(n){ if(!n.children) n.children=[]; n.children.forEach(norm); })(tree);
+    layout(); renderSVG();
+  }
+  return results;
+})()`;
+
+const iframe=document.getElementById('app');
+iframe.addEventListener('load',()=>{
+  let results;
+  try{ results = iframe.contentWindow.eval(TEST_SRC); }
+  catch(err){ results=[{name:'Falha ao executar os testes', pass:false, detail:err.message}]; }
+  const list=document.getElementById('list');
+  let passed=0;
+  results.forEach(r=>{
+    if(r.pass) passed++;
+    const li=document.createElement('li');
+    li.className=r.pass?'pass':'fail';
+    li.innerHTML='<span class="tag">'+(r.pass?'✓ PASSOU':'✗ FALHOU')+'</span>'+r.name+
+      (r.detail?' <span class="detail">('+r.detail+')</span>':'');
+    list.appendChild(li);
+  });
+  const sum=document.getElementById('summary');
+  const all=passed===results.length;
+  sum.className=all?'ok':'fail';
+  sum.textContent=passed+' de '+results.length+' testes passaram'+(all?' ✔':' — verifique as falhas');
+});
+</script>
+</body>
+</html>
