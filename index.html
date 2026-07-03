@@ -34,7 +34,8 @@
     padding:25px;overflow:auto;max-height:calc(100vh - 240px); box-shadow:inset 10px 0 15px -10px rgba(0,0,0,0.1)}
     
   /* position absolute e top/left força a árvore a respeitar exatamente as 4 paredes da stage */
-  #svg{position:absolute;top:0;left:0;width:100%;height:100%;display:block;overflow:hidden;}
+  #svg{position:absolute;top:0;left:0;width:100%;height:100%;display:block;overflow:hidden;
+    touch-action:none;-webkit-user-select:none;user-select:none;}
   
   .controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;
     padding:15px 25px;background:var(--panel2);border-bottom:2px dashed var(--line)}
@@ -107,7 +108,7 @@
   .hint{font-size:13px;color:var(--ink);font-style:italic;line-height:1.6; border:1px solid var(--line);padding:15px;margin-bottom:15px; background:rgba(255,255,255,0.2);}
   #editPreview{display:none;width:100%;max-height:160px;object-fit:cover;border:3px solid #fff; box-shadow:2px 2px 10px rgba(0,0,0,0.2); margin-top:10px;}
   
-  #infoCard{display:none;position:absolute;top:20px;left:20px;width:320px;z-index:20;
+  #infoCard{display:none;position:absolute;top:20px;left:20px;width:min(320px, calc(100% - 40px));z-index:20;
     background:var(--panel);border:2px solid var(--line);box-shadow:5px 5px 15px rgba(0,0,0,0.3);padding:20px;
     max-height:calc(100vh - 300px);overflow:auto;}
   #infoClose{position:absolute;top:8px;right:8px;width:28px;height:28px;line-height:1;
@@ -134,6 +135,75 @@
     border:1px solid var(--line);padding:10px;font-size:13px;font-style:italic; box-shadow:3px 3px 10px rgba(0,0,0,0.1);
     opacity:0;transition:opacity .15s;pointer-events:none}
   #tip.show{opacity:1}
+
+  /* --- recursos educacionais --- */
+  button.tgl.active{background:var(--accent2);color:#fff;box-shadow:2px 2px 0 var(--accent);}
+  #hintBar{position:absolute;top:16px;left:50%;transform:translateX(-50%);z-index:18;display:none;
+    background:var(--accent2);color:#fff;padding:8px 16px;border-radius:4px;font-size:13px;font-style:italic;
+    box-shadow:3px 3px 8px rgba(0,0,0,0.25);max-width:80%;text-align:center;}
+  .clade-box{fill:var(--accent2);fill-opacity:0.07;stroke:var(--accent2);stroke-width:1.5;stroke-dasharray:6 4;}
+  .clade-cap{font-size:12px;font-weight:bold;font-style:italic;fill:var(--accent2);}
+  .trait-tag{font-size:10px;fill:#1c7293;font-style:italic;}
+  .trait-mark{fill:#1c7293;stroke:#fff;stroke-width:1;}
+  .mrca-path{stroke:#b8860b;stroke-width:5;fill:none;stroke-linecap:round;opacity:0.85;}
+  .mrca-pick{fill:none;stroke:#1c7293;stroke-width:3;}
+  .mrca-result{fill:none;stroke:#b8860b;stroke-width:3;}
+  .mrca-cap{font-size:11px;font-weight:bold;fill:#8a5a00;}
+  .axis-line{stroke:var(--line);stroke-width:1;}
+  .axis-grid{stroke:var(--line);stroke-width:0.5;stroke-dasharray:3 5;opacity:0.5;}
+  .axis-label{font-size:10px;fill:var(--muted);}
+  .axis-title{font-size:11px;fill:var(--muted);font-style:italic;}
+  #infoTrait{display:none;font-size:13px;line-height:1.5;color:#1c7293;font-style:italic;margin-top:10px;
+    border-left:3px solid #1c7293;padding-left:8px;}
+  #infoAge{display:none;font-size:12px;color:var(--muted);font-style:italic;margin-top:8px;}
+  .locate-ring{fill:none;stroke:var(--robot);stroke-width:3;stroke-dasharray:4 3;}
+  .search-wrap{position:relative;display:inline-block;}
+  #searchInput{background:transparent;color:var(--ink);border:2px solid var(--line);
+    padding:6px 12px;border-radius:4px;font-size:13px;font-family:"Georgia",serif;
+    box-shadow:2px 2px 0 var(--line);outline:none;min-width:170px;}
+  #searchInput:hover{border-color:var(--accent);}
+  #searchInput:focus{border-color:var(--accent2);box-shadow:2px 2px 0 var(--accent2);}
+  #searchSuggest{position:absolute;top:calc(100% + 3px);left:0;right:0;z-index:60;display:none;
+    min-width:210px;background:var(--panel);border:2px solid var(--line);border-radius:4px;
+    max-height:174px;overflow:auto;box-shadow:4px 6px 14px rgba(0,0,0,0.28);}
+  #searchSuggest.show{display:block;}
+  #searchSuggest .opt{padding:5px 10px;cursor:pointer;border-bottom:1px dotted var(--line);}
+  #searchSuggest .opt:last-child{border-bottom:none;}
+  #searchSuggest .opt:hover,#searchSuggest .opt.active{background:var(--accent2);color:#fff;}
+  #searchSuggest .opt .nm{font-size:13px;font-weight:bold;}
+  #searchSuggest .opt .kind{font-size:10px;font-weight:normal;opacity:.65;font-style:italic;}
+  #searchSuggest .opt .sci{display:block;font-size:11px;font-style:italic;color:var(--muted);font-family:"Courier New",monospace;}
+  #searchSuggest .opt:hover .sci,#searchSuggest .opt.active .sci{color:#f0e0d0;}
+
+  /* lupa do naturalista: balanço, brilho e efeitos de chegada */
+  @keyframes magbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.2px)}}
+  .mag-bob{animation:magbob 1.1s ease-in-out infinite;}
+  @keyframes magglint{0%,100%{opacity:.25}50%{opacity:1}}
+  .mag-glint{animation:magglint 1.5s ease-in-out infinite;}
+  @keyframes rippleAnim{from{r:10px;opacity:.85}to{r:36px;opacity:0}}
+  .ripple{animation:rippleAnim .62s ease-out forwards;}
+  @keyframes popAnim{0%{transform:scale(1)}45%{transform:scale(1.75)}100%{transform:scale(1)}}
+  .node-pop{animation:popAnim .42s ease-out; transform-box:fill-box; transform-origin:center;}
+  @keyframes bubbleAnim{0%{opacity:0}14%{opacity:1}72%{opacity:1}100%{opacity:0}}
+  .speech{animation:bubbleAnim 1.45s ease forwards;}
+
+  /* responsividade: em telas estreitas empilha e garante altura da árvore */
+  @media (max-width: 1040px){
+    .wrap{height:auto;}
+    .stage{flex:1 1 100%; min-width:0; height:62vh; min-height:340px;}
+    .side{flex:1 1 100%; max-height:none; border-left:none; border-top:2px dashed var(--line);
+      box-shadow:none;}
+    .book-container{overflow:visible;}
+    #infoCard{max-height:calc(62vh - 40px);}
+  }
+  /* telas de celular: menos padding e cabeçalho/controles mais compactos */
+  @media (max-width: 560px){
+    body{padding:8px;}
+    header{padding:18px;}
+    header h1{font-size:22px;}
+    .controls{padding:12px 15px;gap:8px;}
+    .side{padding:18px;}
+  }
 </style>
 </head>
 <body>
@@ -165,14 +235,26 @@
       </select>
     </label>
 
+    <label class="lbl">Buscar
+      <span class="search-wrap">
+        <input type="text" id="searchInput" placeholder="espécie ou ancestral…" autocomplete="off">
+        <div id="searchSuggest"></div>
+      </span>
+    </label>
+
     <span id="exploreControls" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
       <div class="seg" id="algoSeg">
         <button data-algo="dfs" class="active" data-tip="Busca em Profundidade. Seguindo a linhagem contínua.">DFS (Profundidade)</button>
         <button data-algo="bfs" data-tip="Busca em Largura. Analisando todos os contemporâneos.">BFS (Níveis)</button>
       </div>
       <button id="playBtn">Iniciar</button>
-      <button id="stepBtn" class="ghost">Avançar</button>
+      <button id="backBtn" class="ghost" data-tip="Volta um passo do robô.">Voltar</button>
+      <button id="stepBtn" class="ghost" data-tip="Avança um passo do robô.">Avançar</button>
+      <button id="finishBtn" class="ghost" data-tip="Pula direto para o fim, sem esperar o robô percorrer tudo.">Concluir</button>
       <button id="resetBtn" class="ghost">Apagar</button>
+      <button id="mrcaBtn" class="ghost tgl" data-tip="Selecione duas espécies para ver o ancestral comum mais recente (ACR).">Ancestral comum</button>
+      <button id="traitBtn" class="ghost tgl" data-tip="Mostra as novidades evolutivas que surgiram em cada ramo.">Novidades</button>
+      <button id="timeBtn" class="ghost tgl" data-tip="Posiciona os nós por tempo (milhões de anos). Requer dados de idade nos ancestrais.">Escala de tempo</button>
       <label class="lbl">Andamento
         <input type="range" id="speed" min="1" max="10" value="5">
       </label>
@@ -183,6 +265,7 @@
       <button id="exampleBtn" class="ghost">Carregar Felidae</button>
       <button id="importBtn" class="ghost">Importar</button>
       <button id="exportBtn">Exportar</button>
+      <button id="exportImgBtn" class="ghost" data-tip="Salva a árvore inteira como imagem PNG.">Salvar imagem</button>
       <input type="file" id="importFile" accept="application/json,.json" hidden>
     </span>
   </div>
@@ -190,6 +273,7 @@
   <div class="wrap">
     <div class="stage">
       <svg id="svg" viewBox="0 0 960 600" preserveAspectRatio="xMinYMin meet"></svg>
+      <div id="hintBar"></div>
       <div id="infoCard">
         <button id="infoClose" title="Fechar">&times;</button>
         <img id="infoImg" alt="">
@@ -197,7 +281,9 @@
         <span id="infoBadge" class="badge"></span>
         <div id="infoSci"></div>
         <div id="infoDesc"></div>
+        <div id="infoTrait"></div>
         <div id="infoAno"></div>
+        <div id="infoAge"></div>
         <div id="infoTax"></div>
       </div>
       <div id="zoomCtrls">
@@ -259,6 +345,14 @@
             <textarea id="fTax" rows="7" placeholder="Reino: Animalia&#10;Filo: Chordata&#10;Classe: Mammalia&#10;Ordem: Primates&#10;Família: Hominidae&#10;Gênero: Homo&#10;Espécie: Homo sapiens"></textarea>
           </div>
           <div class="field">
+            <label>Idade / divergência em Mya (só nós ancestrais)</label>
+            <input type="text" id="fAge" placeholder="Ex: 11">
+          </div>
+          <div class="field">
+            <label>Novidade evolutiva que surge neste ramo</label>
+            <input type="text" id="fTrait" placeholder="Ex: garras retráteis">
+          </div>
+          <div class="field">
             <label>Relato Biológico</label>
             <textarea id="fDesc" rows="5"></textarea>
           </div>
@@ -288,24 +382,24 @@ const felTax=(genero,especie)=>({Reino:"Animalia",Filo:"Chordata",Classe:"Mammal
   Ordem:"Carnivora","Família":"Felidae","Gênero":genero,"Espécie":especie});
 
 const EXAMPLE = {
-  name:"Ancestral Felidae", sci:"Felidae", desc:"Ancestral comum de todos os felinos, que viveu há cerca de 11 milhões de anos. Deu origem a duas grandes linhagens: os grandes felinos (Pantherinae) e os felinos menores (Felinae).", children:[
-    { name:"Ancestral Pantherinae", sci:"Pantherinae", desc:"Ancestral da subfamília dos grandes felinos, que inclui o gênero Panthera (leão, tigre, onça, leopardo) e o leopardo-das-neves.", children:[
-        { name:"Ancestral tigre+leopardo-das-neves", desc:"Ponto de especiação que separou a linhagem do tigre e do leopardo-das-neves das demais.", children:[
+  name:"Ancestral Felidae", sci:"Felidae", age:11, trait:"Garras retráteis e dentição hipercarnívora", desc:"Ancestral comum de todos os felinos, que viveu há cerca de 11 milhões de anos. Deu origem a duas grandes linhagens: os grandes felinos (Pantherinae) e os felinos menores (Felinae).", children:[
+    { name:"Ancestral Pantherinae", sci:"Pantherinae", age:6.4, trait:"Hióide flexível na laringe — permite rugir", desc:"Ancestral da subfamília dos grandes felinos, que inclui o gênero Panthera (leão, tigre, onça, leopardo) e o leopardo-das-neves.", children:[
+        { name:"Ancestral tigre+leopardo-das-neves", age:3.9, desc:"Ponto de especiação que separou a linhagem do tigre e do leopardo-das-neves das demais.", children:[
             { name:"Tigre", sci:"Panthera tigris", ano:"1758 (Linnaeus)", tax:felTax("Panthera","Panthera tigris"), desc:"O maior felino vivo. Vive na Ásia e é facilmente reconhecido pelas listras. Está criticamente ameaçado.", img:"imagens/tigre.jpg" },
             { name:"Leopardo-das-neves", sci:"Panthera uncia", ano:"1775 (Schreber)", tax:felTax("Panthera","Panthera uncia"), desc:"Felino das montanhas da Ásia Central, com pelagem espessa e cauda longa para equilíbrio na neve.", img:"imagens/leopardo_neves.jpg" }
         ]},
-        { name:"Ancestral dos grandes Panthera", desc:"Ancestral que originou onça-pintada, leão e leopardo.", children:[
+        { name:"Ancestral dos grandes Panthera", age:4.6, desc:"Ancestral que originou onça-pintada, leão e leopardo.", children:[
             { name:"Onça-pintada", sci:"Panthera onca", ano:"1758 (Linnaeus)", tax:felTax("Panthera","Panthera onca"), desc:"O maior felino das Américas. Tem a mordida mais forte entre os felinos em relação ao tamanho.", img:"imagens/onca.jpg" },
-            { name:"Ancestral leão+leopardo", desc:"Ponto de especiação que separou o leão do leopardo — espécies-irmãs geneticamente muito próximas.", children:[
+            { name:"Ancestral leão+leopardo", age:3.0, desc:"Ponto de especiação que separou o leão do leopardo — espécies-irmãs geneticamente muito próximas.", children:[
                 { name:"Leão", sci:"Panthera leo", ano:"1758 (Linnaeus)", tax:felTax("Panthera","Panthera leo"), desc:"Único felino social, vivendo em alcateias. Habita savanas africanas e uma pequena região da Índia.", img:"imagens/leao.jpg" },
                 { name:"Leopardo", sci:"Panthera pardus", ano:"1758 (Linnaeus)", tax:felTax("Panthera","Panthera pardus"), desc:"Felino de ampla distribuição (África e Ásia), ótimo escalador que costuma levar presas para as árvores.", img:"imagens/leopardo.jpg" }
             ]}
         ]}
     ]},
-    { name:"Ancestral Felinae", sci:"Felinae", desc:"Ancestral da subfamília dos felinos de pequeno e médio porte, incluindo o puma, o guepardo e o gato doméstico.", children:[
-        { name:"Ancestral puma+guepardo", desc:"Ancestral da linhagem do puma, que também deu origem ao guepardo.", children:[
+    { name:"Ancestral Felinae", sci:"Felinae", age:8.5, trait:"Ronronam de forma contínua; não rugem", desc:"Ancestral da subfamília dos felinos de pequeno e médio porte, incluindo o puma, o guepardo e o gato doméstico.", children:[
+        { name:"Ancestral puma+guepardo", age:6.7, desc:"Ancestral da linhagem do puma, que também deu origem ao guepardo.", children:[
             { name:"Puma (onça-parda)", sci:"Puma concolor", ano:"1771 (Linnaeus)", tax:felTax("Puma","Puma concolor"), desc:"Grande felino das Américas, mas geneticamente mais próximo dos felinos pequenos. Tem enorme distribuição, do Canadá à Patagônia.", img:"imagens/puma.jpg" },
-            { name:"Guepardo", sci:"Acinonyx jubatus", ano:"1775 (Schreber)", tax:felTax("Acinonyx","Acinonyx jubatus"), desc:"O animal terrestre mais rápido, atingindo mais de 100 km/h. Corpo esguio adaptado à corrida.", img:"imagens/guepardo.jpg" }
+            { name:"Guepardo", sci:"Acinonyx jubatus", ano:"1775 (Schreber)", tax:felTax("Acinonyx","Acinonyx jubatus"), trait:"Garras semirretráteis e corpo para corrida (>100 km/h)", desc:"O animal terrestre mais rápido, atingindo mais de 100 km/h. Corpo esguio adaptado à corrida.", img:"imagens/guepardo.jpg" }
         ]},
         { name:"Gato doméstico", sci:"Felis catus", ano:"1758 (Linnaeus)", tax:felTax("Felis","Felis catus"), desc:"Descende do gato-selvagem-africano, domesticado há cerca de 10 mil anos. Hoje é um dos animais de estimação mais comuns do mundo.", img:"imagens/gato.jpg" }
     ]}
@@ -316,7 +410,9 @@ function serialize(n){
   const o={ name:n.name||"" };
   if(n.sci) o.sci=n.sci;
   if(n.ano) o.ano=n.ano;
+  if(typeof n.age==='number') o.age=n.age;
   if(n.tax && Object.keys(n.tax).length) o.tax={...n.tax};
+  if(n.trait) o.trait=n.trait;
   if(n.desc) o.desc=n.desc;
   if(n.img) o.img=n.img;
   if(n.children && n.children.length) o.children=n.children.map(serialize);
@@ -353,14 +449,33 @@ let totalNodes=0, totalEdges=0, maxDepth=0, leaves=0, internals=0, W=960, H=600;
 let editMode=false, selectedId=null;
 let algo='dfs', waypoints=[], segIdx=0, t=0, playing=false, distance=0, order=[];
 let panX=0, panY=0, zoom=1, viewport=null, VBW=960, VBH=600;
+// recursos educacionais
+let cladeHiId=null, mrcaMode=false, mrcaPicks=[], mrcaResultId=null;
+let showTraits=false, timeScale=false, hasFullAges=false, useTimeLayout=false, maxAge=0;
+let robotX=null, robotY=null;
+let robotRot=null, robotAngle=180, dwellUntil=0;
+let locatedId=null;
+const TIMEW=700;
 
 function kind(n){ if(!n.parent) return 'root'; return (n.children&&n.children.length)?'int':'leaf'; }
 
 function layout(){
+  // idades completas? (todo nó ancestral precisa de age numérico)
+  hasFullAges = true;
+  (function chk(n){ if(n.children && n.children.length){ if(typeof n.age!=='number') hasFullAges=false; n.children.forEach(chk); } })(tree);
+  maxAge = (typeof tree.age==='number')?tree.age:0;
+  useTimeLayout = timeScale && hasFullAges && maxAge>0;
+
   let idc=0, leafIdx=0; maxDepth=0; leaves=0; internals=0; allNodes=[]; edges=[];
   (function prep(n,depth,parent){
     n.id=idc++; n.depth=depth; n.parent=parent;
-    n.x=LEFT+depth*LEVEL; maxDepth=Math.max(maxDepth,depth);
+    maxDepth=Math.max(maxDepth,depth);
+    if(useTimeLayout){
+      const age = (n.children && n.children.length) ? n.age : 0; // folhas = presente (0)
+      n.x = LEFT + (maxAge-age)/maxAge*TIMEW;
+    } else {
+      n.x = LEFT + depth*LEVEL;
+    }
     allNodes.push(n);
     if(n.children && n.children.length){
       internals++;
@@ -369,20 +484,73 @@ function layout(){
     } else { leaves++; n.y = TOP + (leafIdx++)*LEAFGAP; }
   })(tree,0,null);
   totalNodes=idc; totalEdges=Math.max(0,idc-1);
-  W = LEFT + maxDepth*LEVEL + 290;
-  H = TOP + Math.max(1,leaves)*LEAFGAP + 120;
+  W = (useTimeLayout ? LEFT+TIMEW : LEFT + maxDepth*LEVEL) + 290;
+  H = TOP + Math.max(1,leaves)*LEAFGAP + (useTimeLayout?150:120);
   VBW = W; VBH = Math.max(H,360);
   svg.setAttribute('viewBox',`0 0 ${VBW} ${VBH}`);
+  updateTimeBtn();
+  updateSearchList();
 }
 
 function renderSVG(){
   svg.innerHTML=''; nodeEls=new Map(); edgeEls=new Map();
   viewport=el('g',{});
 
+  // eixo de tempo (fundo)
+  if(useTimeLayout && maxAge>0){
+    const axisY = TOP + (Math.max(1,leaves)-1)*LEAFGAP + 45;
+    const topY = TOP - 30;
+    const step = maxAge<=6?1 : maxAge<=16?2 : maxAge<=45?5 : 10;
+    for(let age=0; age<=maxAge+0.0001; age+=step){
+      const x = LEFT + (maxAge-age)/maxAge*TIMEW;
+      viewport.appendChild(el('line',{x1:x,y1:topY,x2:x,y2:axisY,class:'axis-grid'}));
+      const lb=el('text',{x:x,y:axisY+16,class:'axis-label','text-anchor':'middle'}); lb.textContent=(''+(Math.round(age*10)/10)); viewport.appendChild(lb);
+    }
+    viewport.appendChild(el('line',{x1:LEFT,y1:axisY,x2:LEFT+TIMEW,y2:axisY,class:'axis-line'}));
+    const ti=el('text',{x:LEFT+TIMEW/2,y:axisY+34,class:'axis-title','text-anchor':'middle'});
+    ti.textContent='← milhões de anos atrás (Mya)        presente →'; viewport.appendChild(ti);
+  }
+
+  // caixa do clado destacado (fundo)
+  if(cladeHiId!=null && !editMode){
+    const node=allNodes.find(n=>n.id===cladeHiId);
+    if(node && node.children && node.children.length){
+      const cl=collectClade(node);
+      const xs=cl.map(d=>d.x), ys=cl.map(d=>d.y);
+      const minx=Math.min(...xs)-30, maxx=Math.max(...xs)+210, miny=Math.min(...ys)-30, maxy=Math.max(...ys)+30;
+      viewport.appendChild(el('rect',{x:minx,y:miny,width:maxx-minx,height:maxy-miny,rx:14,class:'clade-box'}));
+      const nEsp=cl.filter(d=>!(d.children&&d.children.length)).length;
+      const cap=el('text',{x:minx+10,y:miny-8,class:'clade-cap'});
+      cap.textContent='Clado: '+(node.sci||node.name)+'  ('+nEsp+(nEsp===1?' espécie':' espécies')+')';
+      viewport.appendChild(cap);
+    }
+  }
+
   edges.forEach(([p,c])=>{
     const ln=el('line',{x1:p.x,y1:p.y,x2:c.x,y2:c.y,class:'edge'});
     viewport.appendChild(ln); edgeEls.set(c.id,ln);
   });
+
+  // caminho do MRCA (acima das arestas base)
+  if(mrcaResultId!=null && mrcaPicks.length===2){
+    const m=allNodes.find(n=>n.id===mrcaResultId);
+    mrcaPicks.forEach(pid=>{
+      const start=allNodes.find(n=>n.id===pid); if(!start||!m) return;
+      const pth=pathUp(start,m);
+      for(let i=0;i<pth.length-1;i++){ const a=pth[i], b=pth[i+1];
+        viewport.appendChild(el('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,class:'mrca-path'})); }
+    });
+  }
+
+  // novidades evolutivas nos ramos
+  if(showTraits){
+    edges.forEach(([p,c])=>{
+      if(!c.trait) return;
+      const mx=(p.x+c.x)/2, my=(p.y+c.y)/2;
+      viewport.appendChild(el('rect',{x:mx-3,y:my-3,width:6,height:6,transform:`rotate(45 ${mx} ${my})`,class:'trait-mark'}));
+      const tg=el('text',{x:mx,y:my-9,class:'trait-tag','text-anchor':'middle'}); tg.textContent=c.trait; viewport.appendChild(tg);
+    });
+  }
 
   allNodes.forEach(n=>{
     const k=kind(n);
@@ -410,13 +578,22 @@ function renderSVG(){
 
     g.appendChild(el('circle',{cx:n.x,cy:n.y,r:20,fill:'transparent'}));
     g.style.cursor='pointer';
-    if(editMode){
-      g.addEventListener('click',()=>selectNode(n.id));
-    } else {
-      g.addEventListener('click',()=>showInfo(n));
-    }
+    g.addEventListener('click',()=>onNodeClick(n));
     viewport.appendChild(g);
   });
+
+  // marcadores do MRCA (acima dos nós): destaca cada espécie escolhida
+  mrcaPicks.forEach(pid=>{ const p=allNodes.find(n=>n.id===pid); if(p) viewport.appendChild(el('circle',{cx:p.x,cy:p.y,r:15,class:'mrca-pick'})); });
+  if(mrcaResultId!=null && mrcaPicks.length===2){
+    const m=allNodes.find(n=>n.id===mrcaResultId);
+    if(m){
+      viewport.appendChild(el('circle',{cx:m.x,cy:m.y,r:17,class:'mrca-result'}));
+      const cap=el('text',{x:m.x,y:m.y-22,class:'mrca-cap','text-anchor':'middle'}); cap.textContent='ACR'; viewport.appendChild(cap);
+    }
+  }
+
+  // anel de localização (busca)
+  if(locatedId!=null){ const n=allNodes.find(x=>x.id===locatedId); if(n) viewport.appendChild(el('circle',{cx:n.x,cy:n.y,r:22,class:'locate-ring'})); }
 
   if(editMode && selectedId!=null){
     const s=allNodes.find(x=>x.id===selectedId);
@@ -424,15 +601,25 @@ function renderSVG(){
   }
 
   robot=el('g',{});
-  robot.appendChild(el('circle',{r:13,fill:'var(--robot)',stroke:'var(--ink)','stroke-width':1.5}));
-  robot.appendChild(el('line',{x1:0,y1:-9,x2:0,y2:-6,stroke:'var(--ink)','stroke-width':1.5}));
-  robot.appendChild(el('circle',{cx:0,cy:-9.5,r:1.3,fill:'var(--ink)'}));
-  robot.appendChild(el('rect',{x:-5.5,y:-6,width:11,height:9,rx:2,fill:'none',stroke:'var(--ink)','stroke-width':1.5}));
-  robot.appendChild(el('circle',{cx:-2.4,cy:-1.5,r:1.4,fill:'var(--ink)'}));
-  robot.appendChild(el('circle',{cx:2.4,cy:-1.5,r:1.4,fill:'var(--ink)'}));
-  robot.appendChild(el('line',{x1:-2.5,y1:1.4,x2:2.5,y2:1.4,stroke:'var(--ink)','stroke-width':1.4}));
+  // sombra (não gira nem balança)
+  robot.appendChild(el('ellipse',{cx:0,cy:15,rx:10,ry:3.2,fill:'rgba(0,0,0,0.22)'}));
+  const bob=el('g',{class:'mag-bob'});
+  const rot=el('g',{class:'mag-rot'});
+  // haste (aponta para +x; a rotação a mantém atrás, com a lente na frente)
+  rot.appendChild(el('rect',{x:8,y:-3,width:15,height:6,rx:3,fill:'var(--robot)',stroke:'var(--ink)','stroke-width':1.5}));
+  rot.appendChild(el('circle',{cx:24,cy:0,r:3.4,fill:'var(--robot)',stroke:'var(--ink)','stroke-width':1.5}));
+  // lente
+  rot.appendChild(el('circle',{cx:0,cy:0,r:11,fill:'rgba(205,232,244,0.5)',stroke:'var(--robot)','stroke-width':3.5}));
+  rot.appendChild(el('circle',{cx:0,cy:0,r:11,fill:'none',stroke:'var(--ink)','stroke-width':1}));
+  // realce e brilho
+  rot.appendChild(el('path',{d:'M -5.5 -6.5 A 8.5 8.5 0 0 1 4.5 -7.5',fill:'none',stroke:'#ffffff','stroke-width':2,'stroke-linecap':'round',opacity:0.85}));
+  rot.appendChild(el('circle',{cx:-3.5,cy:-3.5,r:1.7,fill:'#fff',class:'mag-glint'}));
+  bob.appendChild(rot); robot.appendChild(bob);
   viewport.appendChild(robot);
+  robotRot=rot;
   if(editMode) robot.style.display='none';
+  if(robotX!=null) robot.setAttribute('transform',`translate(${robotX},${robotY})`);
+  robotRot.setAttribute('transform',`rotate(${robotAngle})`);
 
   svg.appendChild(viewport);
   applyTransform();
@@ -479,15 +666,15 @@ function buildBFS(){
 }
 
 function resetState(){
-  stopAnim(); segIdx=0; t=0; distance=0; order=[];
+  stopAnim(); segIdx=0; t=0; distance=0; order=[]; dwellUntil=0; robotAngle=180;
   waypoints = (algo==='dfs')?buildDFS():buildBFS();
   allNodes.forEach(n=>{ const c=nodeEls.get(n.id); if(c){c.setAttribute('stroke','#3e2819');c.setAttribute('stroke-width',2);} });
   edgeEls.forEach(e=>e.classList.remove('walked'));
   if(robot && waypoints.length){ const p=waypoints[0]; placeRobot(p.x,p.y); }
-  $('playBtn').innerHTML=IC.play+'Iniciar';
+  $('playBtn').innerHTML=IC.play+'Iniciar'; delete $('playBtn').dataset.done;
   refreshPanel(); renderOrder();
 }
-function placeRobot(x,y){ if(robot) robot.setAttribute('transform',`translate(${x},${y})`); }
+function placeRobot(x,y){ robotX=x; robotY=y; if(robot) robot.setAttribute('transform',`translate(${x},${y})`); }
 
 function markArrive(id){
   if(order.includes(id)) return;
@@ -495,29 +682,93 @@ function markArrive(id){
   const c=nodeEls.get(id); if(c){c.setAttribute('stroke','var(--visited)');c.setAttribute('stroke-width',3);}
   renderOrder();
 }
+// orienta a lente para a direção do movimento (lente na frente, cabo atrás)
+function faceToward(a,b){
+  if(!robotRot || (a.x===b.x && a.y===b.y)) return;
+  const target=Math.atan2(b.y-a.y,b.x-a.x)*180/Math.PI + 180;
+  let d=((target-robotAngle+540)%360)-180;
+  robotAngle += d*0.3;
+  robotRot.setAttribute('transform',`rotate(${robotAngle})`);
+}
+// efeitos ao chegar num nó
+function ripple(x,y){
+  const c=el('circle',{cx:x,cy:y,r:10,fill:'none',stroke:'var(--robot)','stroke-width':2.5,class:'ripple'});
+  viewport.appendChild(c); setTimeout(()=>c.remove(),640);
+}
+function pulseNode(id){ const c=nodeEls.get(id); if(!c) return; c.classList.add('node-pop'); setTimeout(()=>c.classList.remove('node-pop'),440); }
+function speechBubble(node){
+  const leaf=!(node.children&&node.children.length);
+  let txt=(leaf?'Catalogado: ':'')+(node.name||'');
+  if(txt.length>34) txt=txt.slice(0,33)+'…';
+  const fs=11, w=txt.length*6.1+16, h=21, bx=node.x+18, by=node.y-36;
+  const g=el('g',{class:'speech'});
+  g.appendChild(el('path',{d:`M ${bx+8} ${by+h-1} l -9 11 l 15 -10 z`,fill:'#fff',stroke:'var(--line)','stroke-width':1}));
+  g.appendChild(el('rect',{x:bx,y:by,width:w,height:h,rx:6,fill:'#fff',stroke:'var(--line)','stroke-width':1.2}));
+  const t=el('text',{x:bx+8,y:by+14.5,fill:'var(--ink)'}); t.setAttribute('font-size',fs); t.setAttribute('font-family','Georgia, serif'); t.textContent=txt;
+  g.appendChild(t);
+  viewport.appendChild(g); setTimeout(()=>g.remove(),1460);
+}
+function onArrive(wp){
+  const n=allNodes.find(x=>x.id===wp.id); if(!n) return;
+  ripple(n.x,n.y); pulseNode(n.id); speechBubble(n);
+}
+let silentStep=false; // true durante reconstrução (Voltar) ou pulo ao fim (Concluir): sem efeitos visuais
 function stepSegment(){
+  if(order.length===0 && waypoints[0] && waypoints[0].arrive){ markArrive(waypoints[0].id); if(!silentStep) onArrive(waypoints[0]); }
   if(segIdx>=waypoints.length-1) return;
   const a=waypoints[segIdx], b=waypoints[segIdx+1];
   distance += Math.hypot(b.x-a.x,b.y-a.y);
   if(algo==='dfs'){ edgeEls.get(b.id)?.classList.add('walked'); edgeEls.get(a.id)?.classList.add('walked'); }
-  placeRobot(b.x,b.y); if(b.arrive) markArrive(b.id);
+  faceToward(a,b);
+  placeRobot(b.x,b.y); if(b.arrive){ markArrive(b.id); if(!silentStep) onArrive(b); }
   segIdx++; t=0; refreshPanel();
+}
+// reconstrói o estado até ter dado exatamente `n` passos, sem efeitos
+function replaySteps(n){
+  stopAnim(); segIdx=0; t=0; distance=0; order=[]; dwellUntil=0; robotAngle=180;
+  allNodes.forEach(nd=>{ const c=nodeEls.get(nd.id); if(c){c.setAttribute('stroke','#3e2819');c.setAttribute('stroke-width',2);} });
+  edgeEls.forEach(e=>e.classList.remove('walked'));
+  if(robot && waypoints.length){ const p=waypoints[0]; placeRobot(p.x,p.y); }
+  silentStep=true;
+  for(let i=0;i<n && segIdx<waypoints.length-1;i++) stepSegment();
+  silentStep=false;
+  delete $('playBtn').dataset.done; // não estamos mais no estado "Concluído"
+  refreshPanel();
+}
+function stepBack(){
+  stopAnim();
+  if(segIdx<=0){ resetState(); return; }
+  replaySteps(segIdx-1);
+  $('playBtn').innerHTML = segIdx<=0 ? IC.play+'Iniciar' : 'Retomar Relato';
+}
+function finishWalk(){
+  stopAnim();
+  silentStep=true;
+  while(segIdx<waypoints.length-1) stepSegment();
+  silentStep=false;
+  refreshPanel();
+  $('playBtn').innerHTML=IC.check+'Concluído'; $('playBtn').dataset.done='1';
 }
 let raf=null,last=0;
 function stopAnim(){ if(raf){ cancelAnimationFrame(raf); raf=null; } playing=false; }
 function loop(ts){
   if(!playing) return;
-  if(!last) last=ts; const dt=(ts-last)/1000; last=ts;
+  if(!last) last=ts;
+  if(ts<dwellUntil){ last=ts; raf=requestAnimationFrame(loop); return; } // pausa de "inspeção"
+  const dt=(ts-last)/1000; last=ts;
   const speed=+$('speed').value;
-  if(segIdx>=waypoints.length-1){ stopAnim(); $('playBtn').innerHTML=IC.check+'Concluído'; return; }
+  if(order.length===0 && waypoints[0] && waypoints[0].arrive){ markArrive(waypoints[0].id); onArrive(waypoints[0]); }
+  if(segIdx>=waypoints.length-1){ stopAnim(); $('playBtn').innerHTML=IC.check+'Concluído'; $('playBtn').dataset.done='1'; return; }
   const a=waypoints[segIdx], b=waypoints[segIdx+1];
   const segLen=Math.hypot(b.x-a.x,b.y-a.y)||1;
+  faceToward(a,b);
   t += (speed*120*dt)/segLen;
   if(t>=1){
     distance+=segLen; placeRobot(b.x,b.y);
     if(algo==='dfs'){ edgeEls.get(b.id)?.classList.add('walked'); edgeEls.get(a.id)?.classList.add('walked'); }
-    if(b.arrive) markArrive(b.id); segIdx++; t=0;
-  } else { placeRobot(a.x+(b.x-a.x)*t, a.y+(b.y-a.y)*t); }
+    if(b.arrive){ markArrive(b.id); onArrive(b); dwellUntil=ts+300; }
+    segIdx++; t=0;
+  } else { const e=t*t*(3-2*t); placeRobot(a.x+(b.x-a.x)*e, a.y+(b.y-a.y)*e); }
   refreshPanel(); raf=requestAnimationFrame(loop);
 }
 
@@ -556,9 +807,15 @@ function showInfo(n){
   const bd = k==='root'?['raiz','b-root'] : k==='int'?['especiação','b-int'] : ['espécie','b-leaf'];
   const badge=$('infoBadge'); badge.className='badge '+bd[1]; badge.textContent=bd[0];
   $('infoDesc').textContent = n.desc || 'Ausência de anotações.';
+  // novidade evolutiva (sinapomorfia)
+  const tr=$('infoTrait');
+  if(n.trait){ tr.textContent='Novidade evolutiva neste ramo: '+n.trait; tr.style.display='block'; } else tr.style.display='none';
   // ano / autoria
   const ano=$('infoAno');
   if(n.ano){ ano.textContent='Descrita em: '+n.ano; ano.style.display='block'; } else ano.style.display='none';
+  // idade / divergência
+  const ag=$('infoAge');
+  if(typeof n.age==='number' && n.age>0){ ag.textContent='Divergência estimada: ~'+n.age+' milhões de anos'; ag.style.display='block'; } else ag.style.display='none';
   // classificação taxonômica
   const tx=$('infoTax'); tx.innerHTML='';
   if(n.tax && Object.keys(n.tax).length){
@@ -574,7 +831,58 @@ function showInfo(n){
   $('infoCard').style.display='block';
 }
 function closeInfo(){ const c=$('infoCard'); if(c) c.style.display='none'; }
-$('infoClose').addEventListener('click',closeInfo);
+$('infoClose').addEventListener('click',()=>{ closeInfo(); locatedId=null; if(cladeHiId!=null){ cladeHiId=null; } if(!editMode && !playing) renderSVG(); });
+
+// ---- recursos educacionais: clado, MRCA, tempo ----
+function collectClade(node){ const out=[]; (function go(n){ out.push(n); if(n.children) n.children.forEach(go); })(node); return out; }
+function ancestorsOf(node){ const a=[]; let c=node; while(c){ a.push(c); c=c.parent; } return a; }
+function computeMRCA(a,b){ const setA=new Set(ancestorsOf(a).map(n=>n.id)); let c=b; while(c){ if(setA.has(c.id)) return c; c=c.parent; } return null; }
+function pathUp(node,stop){ const p=[]; let c=node; while(c){ p.push(c); if(c===stop) break; c=c.parent; } return p; }
+
+function onNodeClick(n){
+  if(editMode){ selectNode(n.id); return; }
+  if(mrcaMode){ pickMRCA(n); return; }
+  locatedId=null;
+  showInfo(n);
+  cladeHiId = (n.children && n.children.length) ? n.id : null;
+  if(!playing) renderSVG();
+}
+function pickMRCA(n){
+  stopAnim();
+  if(mrcaPicks.includes(n.id)) mrcaPicks=mrcaPicks.filter(id=>id!==n.id);
+  else { mrcaPicks.push(n.id); if(mrcaPicks.length>2) mrcaPicks.shift(); }
+  mrcaResultId=null;
+  if(mrcaPicks.length===2){
+    const a=allNodes.find(x=>x.id===mrcaPicks[0]), b=allNodes.find(x=>x.id===mrcaPicks[1]);
+    const m=(a&&b)?computeMRCA(a,b):null; mrcaResultId=m?m.id:null;
+    if(m){ showInfo(m);
+      $('infoName').textContent=m.name;
+      $('infoDesc').textContent='Ancestral comum mais recente de “'+a.name+'” e “'+b.name+'”. '+(m.desc||'');
+    }
+  } else closeInfo();
+  updateMrcaHint();
+  renderSVG();
+}
+function updateMrcaHint(){
+  const hb=$('hintBar'); if(!hb) return;
+  if(!mrcaMode){ hb.style.display='none'; return; }
+  hb.style.display='block';
+  const names=mrcaPicks.map(id=>{ const n=allNodes.find(x=>x.id===id); return n?n.name:'?'; });
+  if(mrcaPicks.length===0) hb.textContent='Modo Ancestral Comum: clique em duas espécies para ver o ancestral comum mais recente (ACR).';
+  else if(mrcaPicks.length===1) hb.textContent='1ª seleção: '+names[0]+'. Agora clique na segunda espécie.';
+  else hb.textContent='ACR de '+names[0]+' e '+names[1]+' destacado. Clique em outra espécie para recomeçar.';
+}
+function updateTimeBtn(){
+  const btn=$('timeBtn'); if(!btn) return;
+  btn.disabled=!hasFullAges;
+  if(!hasFullAges && timeScale){ timeScale=false; btn.classList.remove('active'); }
+}
+function resetLearnState(){
+  cladeHiId=null; mrcaMode=false; mrcaPicks=[]; mrcaResultId=null; locatedId=null;
+  const mb=$('mrcaBtn'); if(mb) mb.classList.remove('active');
+  const hb=$('hintBar'); if(hb) hb.style.display='none';
+  const si=$('searchInput'); if(si) si.value='';
+}
 
 function sel(){ return allNodes.find(n=>n.id===selectedId); }
 function selectNode(id){ selectedId=id; updateEditorForm(); renderSVG(); }
@@ -586,6 +894,8 @@ function updateEditorForm(){
   $('fName').value=n.name||'';
   $('fSci').value=n.sci||'';
   $('fAno').value=n.ano||'';
+  $('fAge').value=(typeof n.age==='number')?n.age:'';
+  $('fTrait').value=n.trait||'';
   $('fTax').value=taxToText(n.tax);
   $('fDesc').value=n.desc||'';
   $('fImg').value=(n.img && !n.img.startsWith('data:'))?n.img:'';
@@ -601,6 +911,8 @@ function structural(){ layout(); renderSVG(); resetState(); }
 $('fName').addEventListener('input',()=>{ const n=sel(); if(n){ n.name=$('fName').value; cosmetic(); } });
 $('fSci').addEventListener('input',()=>{ const n=sel(); if(n){ n.sci=$('fSci').value; cosmetic(); } });
 $('fAno').addEventListener('input',()=>{ const n=sel(); if(n){ n.ano=$('fAno').value||undefined; } });
+$('fAge').addEventListener('input',()=>{ const n=sel(); if(n){ const v=parseFloat(($('fAge').value||'').replace(',','.')); n.age=isNaN(v)?undefined:v; cosmetic(); } });
+$('fTrait').addEventListener('input',()=>{ const n=sel(); if(n){ n.trait=$('fTrait').value||undefined; cosmetic(); } });
 $('fTax').addEventListener('input',()=>{ const n=sel(); if(n){ n.tax=parseTax($('fTax').value); } });
 $('fDesc').addEventListener('input',()=>{ const n=sel(); if(n){ n.desc=$('fDesc').value||undefined; } });
 $('fImg').addEventListener('input',()=>{ const n=sel(); if(n){ n.img=$('fImg').value||undefined; cosmetic();
@@ -652,7 +964,7 @@ $('exportBtn').addEventListener('click',()=>{
 function applyTree(obj){
   if(!obj || typeof obj.name!=='string') throw new Error('Documento corrompido.');
   (function norm(n){ if(!n.children) n.children=[]; n.children.forEach(norm); })(obj);
-  tree=obj; selectedId=null; resetView(); structural();
+  tree=obj; selectedId=null; resetView(); resetLearnState(); structural();
   if(editMode && tree.id != null) selectNode(tree.id);
 }
 $('importBtn').addEventListener('click',()=>$('importFile').click());
@@ -677,20 +989,206 @@ $('collectionSel').addEventListener('change',e=>{
 });
 
 $('playBtn').addEventListener('click',()=>{
+  if($('playBtn').dataset.done){ resetState(); return; } // limpa os caminhos vermelhos e volta para "Iniciar"
   if(playing){ stopAnim(); $('playBtn').innerHTML='Retomar'; return; }
   if(segIdx>=waypoints.length-1) resetState();
   playing=true; last=0; $('playBtn').innerHTML='Pausar';
   raf=requestAnimationFrame(loop);
 });
-$('stepBtn').addEventListener('click',()=>{ stopAnim(); $('playBtn').innerHTML='Retomar Relato'; stepSegment(); });
+$('stepBtn').addEventListener('click',()=>{ if($('playBtn').dataset.done) return; stopAnim(); $('playBtn').innerHTML='Retomar Relato'; stepSegment(); });
+$('backBtn').addEventListener('click',stepBack);
+$('finishBtn').addEventListener('click',finishWalk);
 $('resetBtn').addEventListener('click',resetState);
 document.querySelectorAll('#algoSeg button').forEach(b=>{
   b.addEventListener('click',()=>{ document.querySelectorAll('#algoSeg button').forEach(x=>x.classList.remove('active'));
     b.classList.add('active'); algo=b.dataset.algo; resetState(); });
 });
 
+$('mrcaBtn').addEventListener('click',()=>{
+  mrcaMode=!mrcaMode;
+  $('mrcaBtn').classList.toggle('active',mrcaMode);
+  mrcaPicks=[]; mrcaResultId=null; cladeHiId=null; closeInfo();
+  updateMrcaHint();
+  renderSVG();
+});
+$('traitBtn').addEventListener('click',()=>{
+  showTraits=!showTraits; $('traitBtn').classList.toggle('active',showTraits); renderSVG();
+});
+$('timeBtn').addEventListener('click',()=>{
+  if($('timeBtn').disabled) return;
+  timeScale=!timeScale; $('timeBtn').classList.toggle('active',timeScale);
+  cosmetic(); resetState();
+});
+
+// ---- busca de espécie com autocomplete ----
+let searchEntries=[], suggestActive=-1;
+function updateSearchList(){
+  searchEntries=allNodes.map(n=>({id:n.id, name:n.name||'', sci:n.sci||'', leaf:!(n.children&&n.children.length)}));
+}
+function escHtml(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function centerOn(n, z){
+  const r=svg.getBoundingClientRect();
+  const s=Math.min(r.width/VBW, r.height/VBH) || 1;
+  zoom=clampZoom(z || Math.max(zoom,1.3));
+  panX = r.width/(2*s) - n.x*zoom;
+  panY = r.height/(2*s) - n.y*zoom;
+  applyTransform();
+}
+function locateById(id){
+  const n=allNodes.find(x=>x.id===id); if(!n) return;
+  locatedId=id; stopAnim(); centerOn(n); showInfo(n); renderSVG();
+}
+function clearLocate(){
+  if(locatedId==null) return;
+  locatedId=null; renderSVG();
+}
+function rankEntries(q){
+  const test=(s,how)=>{ s=(s||'').toLowerCase(); return how==='start'?s.startsWith(q):s.includes(q); };
+  const score=e=>{
+    let sc=9;
+    if(e.name.toLowerCase()===q||e.sci.toLowerCase()===q) sc=0;
+    else if(test(e.name,'start')||test(e.sci,'start')) sc=1;
+    else if(test(e.name)||test(e.sci)) sc=2;
+    if(!e.leaf) sc+=0.5; // espécies aparecem antes de ancestrais
+    return sc;
+  };
+  return searchEntries.map(e=>({e,sc:score(e)})).filter(o=>o.sc<3)
+    .sort((a,b)=>a.sc-b.sc).slice(0,6).map(o=>o.e);
+}
+function renderSuggest(){
+  const box=$('searchSuggest'); const q=($('searchInput').value||'').trim().toLowerCase();
+  suggestActive=-1;
+  if(!q){ box.classList.remove('show'); box.innerHTML=''; clearLocate(); return; }
+  const list=rankEntries(q);
+  if(!list.length){ box.classList.remove('show'); box.innerHTML=''; return; }
+  box.innerHTML=list.map(e=>{
+    const sci=(e.sci && e.sci!==e.name)?'<span class="sci">'+escHtml(e.sci)+'</span>':'';
+    return '<div class="opt" data-id="'+e.id+'"><span class="nm">'+escHtml(e.name)+
+      ' <span class="kind">· '+(e.leaf?'espécie':'ancestral')+'</span></span>'+sci+'</div>';
+  }).join('');
+  box.classList.add('show');
+  box.querySelectorAll('.opt').forEach(o=>{
+    o.addEventListener('mousedown',ev=>{ ev.preventDefault(); const id=+o.dataset.id;
+      const nd=allNodes.find(x=>x.id===id); $('searchInput').value=nd?nd.name:''; hideSuggest(); locateById(id); });
+  });
+}
+function hideSuggest(){ $('searchSuggest').classList.remove('show'); }
+function doSearch(){
+  const raw=($('searchInput').value||'').trim(); if(!raw) return;
+  const list=rankEntries(raw.toLowerCase());
+  if(list.length){ hideSuggest(); locateById(list[0].id); return; }
+  const hb=$('hintBar'); hb.textContent='Não encontrei "'+raw+'" nesta árvore.'; hb.style.display='block';
+  setTimeout(()=>{ if(!mrcaMode) hb.style.display='none'; },2500);
+}
+$('searchInput').addEventListener('input',renderSuggest);
+$('searchInput').addEventListener('focus',renderSuggest);
+$('searchInput').addEventListener('blur',()=>setTimeout(hideSuggest,150));
+$('searchInput').addEventListener('keydown',e=>{
+  const opts=[...$('searchSuggest').querySelectorAll('.opt')];
+  if(e.key==='ArrowDown' && opts.length){ e.preventDefault(); suggestActive=(suggestActive+1)%opts.length; opts.forEach((o,i)=>o.classList.toggle('active',i===suggestActive)); opts[suggestActive].scrollIntoView({block:'nearest'}); }
+  else if(e.key==='ArrowUp' && opts.length){ e.preventDefault(); suggestActive=(suggestActive-1+opts.length)%opts.length; opts.forEach((o,i)=>o.classList.toggle('active',i===suggestActive)); opts[suggestActive].scrollIntoView({block:'nearest'}); }
+  else if(e.key==='Enter'){ e.preventDefault();
+    if(suggestActive>=0 && opts[suggestActive]){ const id=+opts[suggestActive].dataset.id; const nd=allNodes.find(x=>x.id===id); $('searchInput').value=nd?nd.name:''; hideSuggest(); locateById(id); }
+    else doSearch();
+  }
+  else if(e.key==='Escape'){ hideSuggest(); }
+});
+
+// ---- exportar a árvore como imagem ----
+const EXPORT_CSS = "text{font-family:'Georgia','Times New Roman',serif;}"
+ +".edge{stroke:var(--line);stroke-width:2;fill:none;stroke-linecap:round;}"
+ +".edge.walked{stroke:var(--visited);stroke-width:4;}"
+ +".node-label{font-size:14px;fill:var(--ink);font-weight:bold;}"
+ +".node-sci{font-size:11px;font-style:italic;fill:var(--muted);}"
+ +".int-label{font-size:10px;fill:var(--muted);}"
+ +".clade-box{fill:var(--accent2);fill-opacity:0.07;stroke:var(--accent2);stroke-width:1.5;stroke-dasharray:6 4;}"
+ +".clade-cap{font-size:12px;font-weight:bold;font-style:italic;fill:var(--accent2);}"
+ +".trait-tag{font-size:10px;fill:#1c7293;font-style:italic;}"
+ +".trait-mark{fill:#1c7293;stroke:#fff;stroke-width:1;}"
+ +".mrca-path{stroke:var(--robot);stroke-width:5;fill:none;stroke-linecap:round;opacity:0.85;}"
+ +".mrca-pick{fill:none;stroke:#1c7293;stroke-width:3;}"
+ +".mrca-result{fill:none;stroke:var(--robot);stroke-width:3;}"
+ +".mrca-cap{font-size:11px;font-weight:bold;fill:#8a5a00;}"
+ +".axis-line{stroke:var(--line);stroke-width:1;}"
+ +".axis-grid{stroke:var(--line);stroke-width:0.5;stroke-dasharray:3 5;opacity:0.5;}"
+ +".axis-label{font-size:10px;fill:var(--muted);}"
+ +".axis-title{font-size:11px;fill:var(--muted);font-style:italic;}"
+ +".locate-ring{fill:none;stroke:var(--robot);stroke-width:3;stroke-dasharray:4 3;}";
+const VARMAP={'var(--root)':'#8b0000','var(--internal)':'#556b2f','var(--leaf)':'#2f4f4f','var(--robot)':'#b8860b','var(--visited)':'#800000','var(--ink)':'#3e2819','var(--muted)':'#705335','var(--line)':'#8b6b4a','var(--accent2)':'#800000','var(--panel)':'#eaddcf'};
+function triggerDownload(href,name){ const a=document.createElement('a'); a.href=href; a.download=name; document.body.appendChild(a); a.click(); a.remove(); }
+function triggerDownloadBlob(blob,name){ const u=URL.createObjectURL(blob); triggerDownload(u,name); setTimeout(()=>URL.revokeObjectURL(u),1500); }
+// tenta obter a foto como dataURL por vários caminhos (fetch, depois canvas)
+function loadImgEl(src){ return new Promise((res,rej)=>{ const i=new Image(); i.onload=()=>res(i); i.onerror=rej; i.src=src; }); }
+async function imgToDataURL(href){
+  if(!href) return null;
+  if(href.startsWith('data:')) return href;
+  const abs=new URL(href, location.href).href;
+  // 1) fetch (funciona quando servido por http/https)
+  try{
+    const resp=await fetch(abs); const blob=await resp.blob();
+    return await new Promise((res,rej)=>{ const fr=new FileReader(); fr.onload=()=>res(fr.result); fr.onerror=rej; fr.readAsDataURL(blob); });
+  }catch(e){}
+  // 2) desenha num canvas (funciona em mais cenários; falha se o canvas for "tainted")
+  try{
+    const el=await loadImgEl(abs);
+    const c=document.createElement('canvas'); c.width=el.naturalWidth||el.width; c.height=el.naturalHeight||el.height;
+    c.getContext('2d').drawImage(el,0,0);
+    return c.toDataURL('image/png');
+  }catch(e){}
+  return null;
+}
+async function exportImage(){
+  const clone=svg.cloneNode(true);
+  clone.setAttribute('xmlns','http://www.w3.org/2000/svg');
+  clone.setAttribute('xmlns:xlink','http://www.w3.org/1999/xlink');
+  clone.setAttribute('width',VBW); clone.setAttribute('height',VBH);
+  clone.setAttribute('viewBox',`0 0 ${VBW} ${VBH}`);
+  const vp=clone.querySelector('g'); if(vp) vp.setAttribute('transform','translate(0 0) scale(1)');
+  const bg=document.createElementNS(NS,'rect'); bg.setAttribute('x',0);bg.setAttribute('y',0);bg.setAttribute('width',VBW);bg.setAttribute('height',VBH);bg.setAttribute('fill','var(--panel)');
+  clone.insertBefore(bg, clone.firstChild);
+  const st=document.createElementNS(NS,'style'); st.textContent=EXPORT_CSS; clone.insertBefore(st, clone.firstChild);
+  // embute as imagens como dataURL para aparecerem no PNG
+  const imgs=[...clone.querySelectorAll('image')];
+  let allEmbedded=true, hadImages=imgs.length>0;
+  await Promise.all(imgs.map(async im=>{
+    const href=im.getAttribute('href')||im.getAttributeNS('http://www.w3.org/1999/xlink','href'); if(!href) return;
+    const durl=await imgToDataURL(href);
+    if(durl){ im.setAttribute('href',durl); im.setAttributeNS('http://www.w3.org/1999/xlink','href',durl); }
+    else { // não deu para ler os bytes: usa caminho absoluto (vale para o fallback SVG)
+      const abs=new URL(href, location.href).href;
+      im.setAttribute('href',abs); im.setAttributeNS('http://www.w3.org/1999/xlink','href',abs);
+      allEmbedded=false;
+    }
+  }));
+  let xml=new XMLSerializer().serializeToString(clone);
+  Object.entries(VARMAP).forEach(([k,v])=>{ xml=xml.split(k).join(v); });
+  const svgBlob=new Blob([xml],{type:'image/svg+xml;charset=utf-8'});
+  // se alguma foto não pôde ser embutida, o PNG sairia sem ela: exporta SVG (mostra as fotos ao abrir localmente)
+  if(hadImages && !allEmbedded){
+    triggerDownloadBlob(svgBlob,'arvore_filogenetica.svg');
+    const local = (location.protocol==='file:');
+    alert(local
+      ? 'Você abriu o arquivo direto do computador (file://), e o navegador bloqueia a leitura das fotos para gerar o PNG.\n\nNo site publicado (GitHub Pages) o "Salvar imagem" gera o PNG com as fotos normalmente. Por enquanto exportei em SVG, que mostra as fotos ao abrir no navegador.'
+      : 'Algumas fotos não puderam ser embutidas (possivelmente hospedadas em outro site). Exportei em SVG, que mostra as fotos ao abrir no navegador.');
+    return;
+  }
+  const url=URL.createObjectURL(svgBlob);
+  const img=new Image();
+  img.onload=()=>{
+    const scale=2, cv=document.createElement('canvas'); cv.width=VBW*scale; cv.height=VBH*scale;
+    const ctx=cv.getContext('2d'); ctx.setTransform(scale,0,0,scale,0,0); ctx.drawImage(img,0,0);
+    URL.revokeObjectURL(url);
+    try{ triggerDownload(cv.toDataURL('image/png'),'arvore_filogenetica.png'); }
+    catch(err){ triggerDownloadBlob(svgBlob,'arvore_filogenetica.svg');
+      alert('Exportei em SVG (vetor), pois há fotos de outro site que impedem gerar o PNG. Em árvores com imagens locais o PNG funciona normalmente.'); }
+  };
+  img.onerror=()=>{ URL.revokeObjectURL(url); triggerDownloadBlob(svgBlob,'arvore_filogenetica.svg'); };
+  img.src=url;
+}
+$('exportImgBtn').addEventListener('click',exportImage);
+
 function setMode(m){
-  editMode=(m==='edit'); stopAnim(); closeInfo();
+  editMode=(m==='edit'); stopAnim(); closeInfo(); resetLearnState();
   document.querySelectorAll('#modeSeg button').forEach(x=>x.classList.toggle('active',x.dataset.mode===m));
   $('exploreControls').style.display = editMode?'none':'flex';
   $('editControls').style.display    = editMode?'flex':'none';
@@ -736,7 +1234,8 @@ svg.addEventListener('mousedown',e=>{
 window.addEventListener('mousemove',e=>{
   if(!dragging) return;
   const dx=e.clientX-dsx, dy=e.clientY-dsy;
-  if(Math.abs(dx)+Math.abs(dy)>3) closeInfo();
+  // não fecha o card do Ancestral Comum nem o da espécie focada pela busca ao arrastar o canvas
+  if(Math.abs(dx)+Math.abs(dy)>3 && !(mrcaMode && mrcaResultId!=null) && locatedId==null) closeInfo();
   
   const ctm = svg.getScreenCTM();
   if(ctm) {
@@ -747,6 +1246,34 @@ window.addEventListener('mousemove',e=>{
   dsx=e.clientX; dsy=e.clientY; applyTransform();
 });
 window.addEventListener('mouseup',()=>{ if(dragging){ dragging=false; svg.classList.remove('grabbing'); } });
+
+// ---- suporte a toque (mobile): arrastar com 1 dedo, pinça (2 dedos) para zoom ----
+let touchPan=false, tlx=0, tly=0, pinchDist=0;
+const tDist=(a,b)=>Math.hypot(b.clientX-a.clientX,b.clientY-a.clientY);
+const tMid =(a,b)=>({x:(a.clientX+b.clientX)/2,y:(a.clientY+b.clientY)/2});
+svg.addEventListener('touchstart',e=>{
+  if(e.touches.length===1){ touchPan=true; tlx=e.touches[0].clientX; tly=e.touches[0].clientY; }
+  else if(e.touches.length>=2){ touchPan=false; pinchDist=tDist(e.touches[0],e.touches[1]); }
+},{passive:true});
+svg.addEventListener('touchmove',e=>{
+  if(e.touches.length===1 && touchPan){
+    e.preventDefault();
+    const x=e.touches[0].clientX, y=e.touches[0].clientY, dx=x-tlx, dy=y-tly;
+    if(Math.abs(dx)+Math.abs(dy)>3 && !(mrcaMode && mrcaResultId!=null) && locatedId==null) closeInfo();
+    const ctm=svg.getScreenCTM();
+    if(ctm){ panX+=dx/ctm.a; panY+=dy/ctm.d; }
+    tlx=x; tly=y; applyTransform();
+  } else if(e.touches.length>=2){
+    e.preventDefault();
+    const d=tDist(e.touches[0],e.touches[1]);
+    if(pinchDist>0){ const m=tMid(e.touches[0],e.touches[1]); const p=toViewBox(m.x,m.y); zoomAt(p.x,p.y, zoom*(d/pinchDist)); }
+    pinchDist=d;
+  }
+},{passive:false});
+svg.addEventListener('touchend',e=>{
+  if(e.touches.length===0){ touchPan=false; pinchDist=0; }
+  else if(e.touches.length===1){ touchPan=true; tlx=e.touches[0].clientX; tly=e.touches[0].clientY; pinchDist=0; }
+},{passive:true});
 
 setMode('explore');
 </script>
